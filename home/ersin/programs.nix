@@ -84,11 +84,45 @@
     enable = true;
   };
 
+
+
+  # === SSH ===
+  programs.ssh = {
+    enable = true;
+    enableDefaultConfig = false;
+    matchBlocks = {
+      "*" = {
+        extraOptions = {
+          SendEnv = "-LC_*";
+          SetEnv = "LC_ALL=C";
+          ConnectTimeout = "10";
+          ServerAliveInterval = "60";
+          ServerAliveCountMax = "3";
+        };
+      };
+      "github.com" = {
+        hostname = "github.com";
+        user = "git";
+        identityFile = "~/.ssh/id_ed25519";
+      };
+      "internal" = {
+        host = "10.* 192.168.* *.consul *.zone";
+        user = "root";
+        extraOptions = {
+          ConnectTimeout = "5";
+          StrictHostKeyChecking = "no";
+          UserKnownHostsFile = "/dev/null";
+        };
+        identityFile = "~/.ssh/id_rsa";
+      };
+    };
+  };
+
   # === GPG ===
   programs.gpg.enable = true;
   services.gpg-agent = {
     enable = true;
-    pinentryPackage = pkgs.pinentry-gnome3;
+    pinentry.package = pkgs.pinentry-gnome3;
     enableSshSupport = true;
   };
 }
