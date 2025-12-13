@@ -84,6 +84,12 @@
     enable = true;
   };
 
+  # === Direnv (auto-load dev environments) ===
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;  # Faster nix integration
+  };
+
 
 
   # === SSH ===

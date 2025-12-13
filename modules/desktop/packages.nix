@@ -21,7 +21,28 @@
     micro
     zed-editor
     nil  # Nix language server
+    nixd  # Alternative Nix language server
     nixfmt-rfc-style  # Nix formatter
+
+    # === Development ===
+    # Node.js
+    nodejs_22
+    pnpm
+    yarn
+
+    # Rust
+    rustc
+    cargo
+    rust-analyzer
+
+    # Python
+    python3
+    python3Packages.pip
+
+    # Build tools
+    gcc
+    gnumake
+    pkg-config
 
     # === Wayland Essentials ===
     waybar
