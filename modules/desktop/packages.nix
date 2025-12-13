@@ -20,6 +20,8 @@
     # === Editor ===
     micro
     zed-editor
+    nil  # Nix language server
+    nixfmt-rfc-style  # Nix formatter
 
     # === Wayland Essentials ===
     waybar
