@@ -150,6 +150,13 @@
     lazygit # Terminal Git UI
     youtube-music # Music streaming
 
+    # === Containers ===
+    distrobox # Run any Linux distro in containers
+    distrobox-tui # TUI for distrobox
+    distroshelf # GUI for distrobox
+    boxbuddy # GUI for distrobox (GTK4)
+    podman-compose # docker-compose for podman
+
     # === HashiCorp ===
     nomad
     consul

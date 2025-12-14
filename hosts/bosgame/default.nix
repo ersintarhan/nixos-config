@@ -70,6 +70,13 @@
   # === BPFTUNE (auto-tune system with BPF) ===
   services.bpftune.enable = true;
 
+  # === PODMAN (container runtime) ===
+  virtualisation.podman = {
+    enable = true;
+    dockerCompat = true; # docker alias
+    defaultNetwork.settings.dns_enabled = true;
+  };
+
   # === NIX-LD (for proprietary binaries like JetBrains) ===
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [

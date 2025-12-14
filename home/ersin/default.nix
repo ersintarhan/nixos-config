@@ -8,6 +8,7 @@
     ./waybar.nix
     ./mako.nix
     ./secrets.nix
+    ./distrobox.nix
   ];
 
   home.username = "ersin";
