@@ -97,6 +97,7 @@
     git
     gnupg
     pinentry-gnome3
+    sops # Secret management
     curl
     wget
     unzip
@@ -126,6 +127,11 @@
     nomad
     consul
     vault # lazım olur
+
+    # === Kubernetes ===
+    kubectl
+    kubernetes-helm
+    k9s # TUI for k8s
 
     # === AI Tools ===
     amazon-q-cli

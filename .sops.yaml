@@ -1,0 +1,15 @@
+keys:
+  - &ersin F60FF77932C08ED5E234A2B94D31F871BF61EB98
+
+creation_rules:
+  # Encrypted YAML files
+  - path_regex: secrets/.*\.yaml$
+    key_groups:
+      - pgp:
+          - *ersin
+
+  # Binary files (like kubeconfig)
+  - path_regex: secrets/.*\.enc$
+    key_groups:
+      - pgp:
+          - *ersin

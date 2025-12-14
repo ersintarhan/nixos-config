@@ -7,6 +7,7 @@
     ./niri.nix
     ./waybar.nix
     ./mako.nix
+    ./secrets.nix
   ];
 
   home.username = "ersin";
