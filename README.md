@@ -1,84 +1,120 @@
 # NixOS Configuration
 
-Ersin'in modüler NixOS + Home Manager yapılandırması.
+My personal NixOS + Home Manager configuration with Flakes, featuring a modular structure and encrypted secrets management.
 
-## Yapı
+## Features
+
+- **Flakes** - Reproducible system configuration
+- **Home Manager** - Declarative user environment management
+- **sops-nix** - Encrypted secrets (SSH keys, kubeconfig, etc.)
+- **Niri** - Scrollable tiling Wayland compositor
+- **Waybar + Mako** - Status bar and notifications
+- **Fish shell** - Modern shell with starship prompt
+- **Catppuccin Mocha** - Consistent dark theme across apps
+- **ROCm** - AMD GPU compute support
+- **Development tools** - Node.js, Rust, Python, kubectl, Helm
+
+## Structure
 
 ```
 nixos-config/
-├── flake.nix                 # Ana flake dosyası
-├── flake.lock                # Bağımlılık kilidi
-├── hosts/                    # Bilgisayar-spesifik ayarlar
-│   ├── bosgame/
-│   │   ├── default.nix       # Host yapılandırması
-│   │   └── hardware.nix      # Donanım (nixos-generate-config ile oluşur)
-│   └── ryzen/                # (Yeni host için örnek)
-│       ├── default.nix
-│       └── hardware.nix
-├── modules/                  # Paylaşılan modüller
+├── flake.nix                 # Main flake
+├── flake.lock                # Dependency lock
+├── .sops.yaml                # SOPS GPG key configuration
+│
+├── hosts/                    # Machine-specific configs
+│   └── bosgame/
+│       ├── default.nix       # Host configuration
+│       └── hardware.nix      # Hardware (generated)
+│
+├── modules/                  # Shared modules
 │   ├── desktop/
 │   │   ├── default.nix       # Niri, portals, fonts
-│   │   └── packages.nix      # Sistem paketleri
+│   │   └── packages.nix      # System packages
 │   ├── hardware/
-│   │   └── graphics.nix      # GPU ayarları (AMD)
+│   │   └── graphics.nix      # AMD GPU (ROCm, Vulkan)
 │   └── services/
 │       ├── audio.nix         # Pipewire
-│       └── bluetooth.nix     # Bluetooth
-└── home/                     # Home Manager (kullanıcı ayarları)
-    └── ersin/
-        ├── default.nix       # Ana home config
-        ├── programs.nix      # Git, Fish, SSH, GPG, vs.
-        ├── niri.nix          # Niri compositor config
-        ├── waybar.nix        # Status bar
-        └── mako.nix          # Bildirimler
+│       └── bluetooth.nix     # Bluetooth + Blueman
+│
+├── home/                     # Home Manager configs
+│   └── ersin/
+│       ├── default.nix       # Main home config, themes
+│       ├── programs.nix      # Git, Fish, SSH, Kitty, etc.
+│       ├── secrets.nix       # SOPS secret definitions
+│       ├── niri.nix          # Compositor keybindings
+│       ├── waybar.nix        # Status bar
+│       └── mako.nix          # Notifications
+│
+└── secrets/                  # Encrypted secrets (safe to commit)
+    └── secrets.yaml          # SSH keys, kubeconfig (GPG encrypted)
 ```
 
-## Günlük Kullanım
+## Quick Start
+
+### Prerequisites
+
+- NixOS installed with flakes enabled
+- GPG key imported (for secret decryption)
+
+### Installation
 
 ```bash
-# Sistemi güncelle
+# Clone the repo
+git clone https://github.com/yourusername/nixos-config.git ~/nixos-config
+cd ~/nixos-config
+
+# Import your GPG key
+gpg --import /path/to/your-key.asc
+gpg --edit-key YOUR_KEY_ID  # trust -> 5 -> quit
+
+# Apply configuration
+sudo nixos-rebuild switch --flake .#bosgame
+```
+
+### Daily Usage
+
+```bash
+# Update system (fish abbreviation)
 update
 
-# Eski nesilleri temizle
+# Clean old generations
 cleanup
 
-# Manuel güncelleme
+# Edit secrets
+sops secrets/secrets.yaml
+
+# Manual rebuild
 sudo nixos-rebuild switch --flake ~/nixos-config#bosgame
 ```
 
-## Yeni Paket Ekleme
+## Secret Management
 
-`modules/desktop/packages.nix` dosyasını düzenle:
-
-```nix
-environment.systemPackages = with pkgs; [
-  # ... mevcut paketler
-  yeni-paket
-];
-```
-
-Sonra `update` çalıştır.
-
-## Yeni Host Ekleme (örn: ryzen)
-
-### 1. Host klasörü oluştur
+Secrets are encrypted with [sops-nix](https://github.com/Mic92/sops-nix) using GPG:
 
 ```bash
-mkdir -p ~/nixos-config/hosts/ryzen
+# Edit/add secrets
+sops secrets/secrets.yaml
+
+# Secrets are automatically decrypted during rebuild to:
+# ~/.kube/config      - Kubernetes config
+# ~/.ssh/id_ed25519   - SSH private key
+# ~/.ssh/id_rsa       - SSH private key (legacy)
 ```
 
-### 2. Yeni makinede hardware config oluştur
+## Adding a New Host
 
+1. Create host directory:
 ```bash
-nixos-generate-config --show-hardware-config > hardware.nix
+mkdir -p hosts/newhost
 ```
 
-Bu dosyayı `hosts/ryzen/hardware.nix` olarak kopyala.
+2. Generate hardware config on the new machine:
+```bash
+nixos-generate-config --show-hardware-config > hosts/newhost/hardware.nix
+```
 
-### 3. Host config oluştur
-
-`hosts/ryzen/default.nix`:
-
+3. Create `hosts/newhost/default.nix`:
 ```nix
 { config, pkgs, ... }:
 
@@ -88,123 +124,93 @@ Bu dosyayı `hosts/ryzen/hardware.nix` olarak kopyala.
     ../../modules/desktop
     ../../modules/services/audio.nix
     ../../modules/services/bluetooth.nix
-    ../../modules/hardware/graphics.nix  # GPU'ya göre değiştir
+    ../../modules/hardware/graphics.nix
   ];
 
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-
-  networking.hostName = "ryzen";  # Hostname
-  networking.networkmanager.enable = true;
-
-  time.timeZone = "Europe/Istanbul";
-  i18n.defaultLocale = "en_US.UTF-8";
-
-  programs.fish.enable = true;
-  users.users.ersin = {
-    isNormalUser = true;
-    description = "Ersin Tarhan";
-    extraGroups = [ "networkmanager" "wheel" "video" "audio" ];
-    shell = pkgs.fish;
-  };
-  security.sudo.wheelNeedsPassword = false;
-
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  nixpkgs.config.allowUnfree = true;
-
-  system.stateVersion = "25.11";  # İlk kurulum versiyonu
+  networking.hostName = "newhost";
+  # ... rest of config
 }
 ```
 
-### 4. flake.nix'e host ekle
-
+4. Add to `flake.nix`:
 ```nix
 nixosConfigurations = {
-  bosgame = nixpkgs.lib.nixosSystem { ... };
-
-  # Yeni host
-  ryzen = nixpkgs.lib.nixosSystem {
+  newhost = nixpkgs.lib.nixosSystem {
     system = "x86_64-linux";
     specialArgs = { inherit inputs; };
     modules = [
-      ./hosts/ryzen
+      ./hosts/newhost
+      sops-nix.nixosModules.sops
       home-manager.nixosModules.home-manager
       {
         home-manager.useGlobalPkgs = true;
         home-manager.useUserPackages = true;
         home-manager.users.ersin = import ./home/ersin;
+        home-manager.sharedModules = [
+          sops-nix.homeManagerModules.sops
+        ];
       }
     ];
   };
 };
 ```
 
-### 5. Yeni makinede uygula
-
+5. Apply on the new machine:
 ```bash
-sudo nixos-rebuild switch --flake ~/nixos-config#ryzen
+sudo nixos-rebuild switch --flake ~/nixos-config#newhost
 ```
 
-## Kısayollar (Niri)
+## Keybindings (Niri)
 
-| Kısayol | Eylem |
-|---------|-------|
+| Key | Action |
+|-----|--------|
 | `Mod+Return` | Kitty terminal |
 | `Mod+T` | Foot terminal |
-| `Mod+Space` | Fuzzel (uygulama başlatıcı) |
-| `Mod+E` | Nemo (dosya yöneticisi) |
-| `Mod+Y` | Yazi (TUI dosya yöneticisi) |
+| `Mod+Space` | Fuzzel launcher |
+| `Mod+E` | Nemo file manager |
 | `Mod+B` | Firefox |
-| `Mod+Q` | Pencere kapat |
-| `Mod+F` | Tam ekran |
-| `Mod+V` | Float/tile geçiş |
-| `Mod+1-9` | Workspace değiştir |
-| `Mod+Tab` | Önceki workspace |
+| `Mod+Q` | Close window |
+| `Mod+F` | Fullscreen |
+| `Mod+V` | Toggle float |
+| `Mod+1-9` | Switch workspace |
+| `Mod+Shift+1-9` | Move to workspace |
 | `Print` | Screenshot |
 | `Mod+O` | Overview |
 
-## Faydalı Komutlar
+## Useful Commands
 
 ```bash
-# Nix store temizle
-sudo nix-collect-garbage -d
-
-# Flake güncelle (nixpkgs vs.)
+# Update flake inputs
 nix flake update
 
-# Belirli bir input güncelle
-nix flake lock --update-input nixpkgs
+# Search packages
+nix search nixpkgs package-name
 
-# Önceki nesile dön
+# Rollback to previous generation
 sudo nixos-rebuild switch --rollback
 
-# Mevcut nesilleri listele
+# List generations
 sudo nix-env --list-generations --profile /nix/var/nix/profiles/system
 
-# Paket ara
-nix search nixpkgs paket-adi
+# Garbage collect
+sudo nix-collect-garbage -d
 
-# GPU durumu
-nvtop
+# Check GPU
 rocm-smi
+nvtop
 
-# Sistem bilgisi
+# System info
 fastfetch
 ```
 
-## Dosya Konumları
+## Acknowledgments
 
-| Dosya | Açıklama |
-|-------|----------|
-| `~/.config/niri/config.kdl` | Niri config (Home Manager yönetir) |
-| `~/.config/waybar/` | Waybar config (Home Manager yönetir) |
-| `~/.ssh/` | SSH anahtarları (manuel) |
-| `~/.gnupg/` | GPG anahtarları (manuel) |
+- [NixOS](https://nixos.org/)
+- [Home Manager](https://github.com/nix-community/home-manager)
+- [sops-nix](https://github.com/Mic92/sops-nix)
+- [Niri](https://github.com/YaLTeR/niri)
+- [Catppuccin](https://github.com/catppuccin/catppuccin)
 
-## Notlar
+## License
 
-- Private key'leri (SSH, GPG) git'e **ekleme**
-- `hardware.nix` her makinede farklı olacak
-- `system.stateVersion` değiştirme (ilk kurulum versiyonu)
-- Değişikliklerden sonra `update` çalıştır
+MIT

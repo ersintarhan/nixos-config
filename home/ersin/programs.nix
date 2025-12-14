@@ -1,5 +1,5 @@
 # User Programs Configuration
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   # === Git ===
@@ -36,6 +36,13 @@
     };
     interactiveShellInit = ''
       set -g fish_greeting  # Disable greeting
+
+      # Load SSH keys into agent (once per session)
+      if test -z "$SSH_KEYS_LOADED"
+        ssh-add ~/.ssh/id_ed25519 2>/dev/null
+        ssh-add ~/.ssh/id_rsa 2>/dev/null
+        set -gx SSH_KEYS_LOADED 1
+      end
     '';
   };
 
@@ -218,7 +225,7 @@
       "github.com" = {
         hostname = "github.com";
         user = "git";
-        identityFile = "~/.ssh/id_ed25519";
+        identityFile = "~/.ssh/id_rsa";
       };
       "internal" = {
         host = "10.* 192.168.* *.consul *.zone";
@@ -233,30 +240,14 @@
     };
   };
 
-  # === GitHub Desktop Plus (AppImage) ===
-  home.file.".local/bin/github-desktop-plus" = {
-    executable = true;
-    text = ''
-      #!/usr/bin/env bash
-      exec appimage-run ~/.local/bin/github-desktop-plus.AppImage "$@"
-    '';
-  };
-
-  xdg.desktopEntries.github-desktop-plus = {
-    name = "GitHub Desktop Plus";
-    genericName = "Git Client";
-    exec = "github-desktop-plus %U";
-    icon = "github";
-    terminal = false;
-    categories = [
-      "Development"
-      "RevisionControl"
-    ];
-    mimeType = [
-      "x-scheme-handler/x-github-client"
-      "x-scheme-handler/github-mac"
-    ];
-  };
+  # === Zap (AppImage Package Manager) ===
+  home.activation.installZap = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+    if [ ! -f ~/.local/bin/zap ]; then
+      mkdir -p ~/.local/bin
+      ${pkgs.wget}/bin/wget -q https://github.com/srevinsaju/zap/releases/download/v2-continuous/zap -O ~/.local/bin/zap
+      chmod +x ~/.local/bin/zap
+    fi
+  '';
 
   # === GPG ===
   programs.gpg.enable = true;

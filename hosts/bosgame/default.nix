@@ -78,6 +78,13 @@
   services.openssh.enable = true;
   services.gvfs.enable = true;
   services.udisks2.enable = true;
+  services.flatpak.enable = true;
+
+  # Flatpak apps visible in launcher
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  environment.sessionVariables = {
+    XDG_DATA_DIRS = [ "/var/lib/flatpak/exports/share" "$HOME/.local/share/flatpak/exports/share" ];
+  };
 
   system.stateVersion = "25.11";
 }

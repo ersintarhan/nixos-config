@@ -121,7 +121,8 @@
     telegram-desktop
     gh # GitHub CLI
     appimage-run # AppImage support
-    github-desktop
+    gittyup # Git GUI
+    lazygit # Terminal Git UI
 
     # === HashiCorp ===
     nomad
@@ -132,6 +133,7 @@
     kubectl
     kubernetes-helm
     k9s # TUI for k8s
+    freelens-bin # Kubernetes IDE
 
     # === AI Tools ===
     amazon-q-cli
