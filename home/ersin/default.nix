@@ -3,6 +3,7 @@
 
 {
   imports = [
+    # Main modules
     ./programs.nix
     ./niri.nix
     ./waybar.nix
@@ -10,6 +11,13 @@
     ./secrets.nix
     ./distrobox.nix
     ./wallpaper.nix
+
+    # Modularized program configurations
+    ./programs/fish.nix
+    ./programs/kitty.nix
+    ./programs/foot.nix
+    ./programs/starship.nix
+    ./programs/ssh.nix
   ];
 
   home.username = "ersin";
