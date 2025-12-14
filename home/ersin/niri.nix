@@ -14,8 +14,9 @@
     spawn-at-startup "waybar"
     spawn-at-startup "mako"
     spawn-at-startup "/run/current-system/sw/libexec/polkit-gnome-authentication-agent-1"
+    spawn-at-startup "swww init"
+    spawn-at-startup "sh -c '~/.local/bin/random-wallpaper'" // Set initial wallpaper
     // spawn-at-startup "nm-applet" "--indicator"  // Disabled - using waybar network module
-    // spawn-at-startup "swww-daemon"  // Uncomment for wallpaper support
 
     // ────────────── Input Configuration ──────────────
     input {

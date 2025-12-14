@@ -9,6 +9,7 @@
     ./mako.nix
     ./secrets.nix
     ./distrobox.nix
+    ./wallpaper.nix
   ];
 
   home.username = "ersin";
