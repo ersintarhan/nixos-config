@@ -3,7 +3,7 @@
 {
   home.packages = with pkgs; [
     swww
-    wget
+    curl
   ];
 
   # Make swww-daemon a systemd service for reliability
@@ -29,11 +29,12 @@
     WALLPAPER_DIR="$HOME/.cache/wallpapers"
     mkdir -p "$WALLPAPER_DIR"
 
-    # Fetch a new random wallpaper. The URL is simplified to improve reliability.
-    # You can add more keywords separated by commas, e.g., ?nature,water,fire
+    # Fetch a new random wallpaper from Picsum Photos (2560x1440)
+    # Using curl with User-Agent and following redirects
     WALLPAPER_PATH="$WALLPAPER_DIR/wallpaper-$(date +%s).jpg"
-    if ! wget "https://source.unsplash.com/random/1920x1080/?nature" -O "$WALLPAPER_PATH"; then
-        echo "Failed to download wallpaper from Unsplash. Exiting."
+    USER_AGENT="Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0"
+    if ! curl -L -A "$USER_AGENT" -o "$WALLPAPER_PATH" "https://picsum.photos/2560/1440"; then
+        echo "Failed to download wallpaper from Picsum Photos. Exiting."
         exit 1
     fi
 
@@ -57,7 +58,7 @@
   # systemd service and timer for the script
   systemd.user.services.random-wallpaper = {
     Unit = {
-      Description = "Set a random wallpaper from Unsplash";
+      Description = "Set a random wallpaper from Picsum Photos";
     };
     Service = {
       Type = "oneshot";
