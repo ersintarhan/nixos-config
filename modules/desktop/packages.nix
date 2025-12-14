@@ -116,6 +116,7 @@
     htop
     mission-center # System monitor (Task Manager style)
     btop
+    bpftune # BPF-based auto-tuning
     fastfetch
     xdg-utils
     xdg-user-dirs

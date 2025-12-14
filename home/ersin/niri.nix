@@ -223,6 +223,7 @@
 
         // ─── Layout Controls ───
         Mod+R { switch-preset-column-width; }
+        Mod+Shift+R { switch-preset-column-width-back; }
         Mod+Ctrl+F { expand-column-to-available-width; }
         Mod+C { center-column; }
         Mod+Ctrl+C { center-visible-columns; }

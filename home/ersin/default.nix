@@ -96,5 +96,46 @@
     videos = "${config.home.homeDirectory}/Videos";
   };
 
+  # === Nemo Actions ===
+  home.file.".local/share/nemo/actions/copy-full-path.nemo_action".text = ''
+    [Nemo Action]
+    Name=Copy Full Path
+    Comment=Copy the full path to clipboard
+    Exec=sh -c 'echo -n "%F" | wl-copy'
+    Icon-Name=edit-copy
+    Selection=any
+    Extensions=any;
+  '';
+
+  home.file.".local/share/nemo/actions/copy-directory-path.nemo_action".text = ''
+    [Nemo Action]
+    Name=Copy Directory Path
+    Comment=Copy the directory path to clipboard
+    Exec=sh -c 'dirname "%F" | tr -d "\n" | wl-copy'
+    Icon-Name=folder
+    Selection=any
+    Extensions=any;
+  '';
+
+  home.file.".local/share/nemo/actions/open-in-zed.nemo_action".text = ''
+    [Nemo Action]
+    Name=Open in Zed
+    Comment=Open file or folder in Zed editor
+    Exec=zeditor "%F"
+    Icon-Name=zed
+    Selection=any
+    Extensions=any;
+  '';
+
+  home.file.".local/share/nemo/actions/open-in-kitty.nemo_action".text = ''
+    [Nemo Action]
+    Name=Open Terminal Here
+    Comment=Open Kitty terminal in this directory
+    Exec=kitty --working-directory="%P"
+    Icon-Name=utilities-terminal
+    Selection=any
+    Extensions=dir;
+  '';
+
   home.stateVersion = "25.11";
 }

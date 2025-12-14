@@ -62,6 +62,9 @@
   };
   security.sudo.wheelNeedsPassword = false;
 
+  # === BPFTUNE (auto-tune system with BPF) ===
+  services.bpftune.enable = true;
+
   # === NIX-LD (for proprietary binaries like JetBrains) ===
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
