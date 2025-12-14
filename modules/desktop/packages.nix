@@ -125,5 +125,7 @@
 
     # === AI Tools ===
     amazon-q-cli
+    github-copilot-cli
+    gh-copilot # gh extension for copilot
   ];
 }
