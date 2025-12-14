@@ -19,6 +19,11 @@
   networking.hostName = "bosgame";
   networking.networkmanager.enable = true;
 
+  # === DNS (Consul) ===
+  networking.nameservers = [ "10.101.1.11" "10.101.1.12" "10.101.1.13" ];
+  networking.search = [ "consul" "node.consul" "service.consul" ];
+  networking.networkmanager.dns = "none";  # NM DNS'i yönetmesin
+
   # === LOCALE & TIME ===
   time.timeZone = "Europe/Istanbul";
   i18n.defaultLocale = "en_US.UTF-8";

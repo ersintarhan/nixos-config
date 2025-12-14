@@ -118,6 +118,11 @@
     gh  # GitHub CLI
     appimage-run  # AppImage support
 
+    # === HashiCorp ===
+    nomad
+    consul
+    vault  # lazım olur
+
     # === AI Tools ===
     amazon-q-cli
   ];
