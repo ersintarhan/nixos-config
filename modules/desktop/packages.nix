@@ -159,6 +159,7 @@
 
     # === Database Toools ===
     sqlcmd
+    postgresql_18.client # PostgreSQL client
     pgcli # PostgreSQL CLI
     pspg # PostgreSQL pager
     redli # Redis CLI alternative
