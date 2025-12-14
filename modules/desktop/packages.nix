@@ -23,6 +23,7 @@
     # === Editor ===
     micro
     zed-editor
+    antigravity-fhs # AI IDE (agentic development)
     nil # Nix language server
     nixd # Alternative Nix language server
     nixfmt-rfc-style # Nix formatter
@@ -122,6 +123,7 @@
     xdg-user-dirs
     pciutils
     usbutils
+    lm_sensors # CPU temperature monitoring
     bat
     zoxide
 

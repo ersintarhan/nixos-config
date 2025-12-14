@@ -4,5 +4,6 @@
 {
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
-  services.blueman.enable = true;
+  # Blueman manager (without tray applet)
+  environment.systemPackages = [ pkgs.blueman ];
 }

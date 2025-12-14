@@ -127,6 +127,16 @@
     Extensions=any;
   '';
 
+  home.file.".local/share/nemo/actions/open-in-antigravity.nemo_action".text = ''
+    [Nemo Action]
+    Name=Open in Antigravity
+    Comment=Open file or folder in Antigravity AI IDE
+    Exec=antigravity "%F"
+    Icon-Name=antigravity
+    Selection=any
+    Extensions=any;
+  '';
+
   home.file.".local/share/nemo/actions/open-in-kitty.nemo_action".text = ''
     [Nemo Action]
     Name=Open Terminal Here
@@ -135,6 +145,17 @@
     Icon-Name=utilities-terminal
     Selection=any
     Extensions=dir;
+  '';
+
+  # Disable tray applets (using waybar modules instead)
+  home.file.".config/autostart/blueman.desktop".text = ''
+    [Desktop Entry]
+    Hidden=true
+  '';
+
+  home.file.".config/autostart/nm-applet.desktop".text = ''
+    [Desktop Entry]
+    Hidden=true
   '';
 
   home.stateVersion = "25.11";

@@ -14,6 +14,10 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelModules = [ "i2c-dev" ]; # For ddcutil (external monitor brightness)
+
+  # === DDC/CI (external monitor control) ===
+  hardware.i2c.enable = true;
 
   # === NETWORK ===
   networking.hostName = "bosgame";
@@ -57,6 +61,7 @@
       "wheel"
       "video"
       "audio"
+      "i2c" # For ddcutil (monitor brightness)
     ];
     shell = pkgs.fish;
   };

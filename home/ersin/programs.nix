@@ -49,6 +49,32 @@
         ssh-add ~/.ssh/id_rsa 2>/dev/null
         set -gx SSH_KEYS_LOADED 1
       end
+
+      # Monitor brightness control (ddcutil)
+      function bright
+        if test (count $argv) -eq 0
+          ddcutil getvcp 10 --display 1 | grep -oP 'current value = \s*\K\d+'
+          return
+        end
+        ddcutil setvcp 10 $argv[1] --display 1 &
+        ddcutil setvcp 10 $argv[1] --display 2 &
+        wait
+        echo "Brightness set to $argv[1]%"
+      end
+
+      function bright+
+        set current (ddcutil getvcp 10 --display 1 | grep -oP 'current value = \s*\K\d+')
+        set new (math $current + 10)
+        if test $new -gt 100; set new 100; end
+        bright $new
+      end
+
+      function bright-
+        set current (ddcutil getvcp 10 --display 1 | grep -oP 'current value = \s*\K\d+')
+        set new (math $current - 10)
+        if test $new -lt 0; set new 0; end
+        bright $new
+      end
     '';
   };
 

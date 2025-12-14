@@ -14,7 +14,7 @@
     spawn-at-startup "waybar"
     spawn-at-startup "mako"
     spawn-at-startup "/run/current-system/sw/libexec/polkit-gnome-authentication-agent-1"
-    spawn-at-startup "nm-applet" "--indicator"
+    // spawn-at-startup "nm-applet" "--indicator"  // Disabled - using waybar network module
     // spawn-at-startup "swww-daemon"  // Uncomment for wallpaper support
 
     // ────────────── Input Configuration ──────────────
@@ -134,7 +134,7 @@
         Mod+T hotkey-overlay-title="Terminal: Foot" { spawn "foot"; }
         Mod+Space hotkey-overlay-title="App Launcher" { spawn "fuzzel"; }
         Mod+D hotkey-overlay-title="App Launcher: Wofi" { spawn "wofi" "--show" "drun"; }
-        Mod+B hotkey-overlay-title="Browser: Firefox" { spawn "firefox"; }
+        Mod+B hotkey-overlay-title="Browser: Microsoft Edge" { spawn "microsoft-edge"; }
         Mod+E hotkey-overlay-title="File Manager: Nemo" { spawn "nemo"; }
         Mod+Y hotkey-overlay-title="File Manager: Yazi" { spawn "kitty" "-e" "yazi"; }
         Super+Alt+L hotkey-overlay-title="Lock Screen" { spawn "swaylock"; }
