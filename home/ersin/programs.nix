@@ -240,15 +240,6 @@
     };
   };
 
-  # === Zap (AppImage Package Manager) ===
-  home.activation.installZap = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-    if [ ! -f ~/.local/bin/zap ]; then
-      mkdir -p ~/.local/bin
-      ${pkgs.wget}/bin/wget -q https://github.com/srevinsaju/zap/releases/download/v2-continuous/zap -O ~/.local/bin/zap
-      chmod +x ~/.local/bin/zap
-    fi
-  '';
-
   # === GPG ===
   programs.gpg.enable = true;
   services.gpg-agent = {

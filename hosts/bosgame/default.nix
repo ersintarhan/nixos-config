@@ -62,6 +62,32 @@
   };
   security.sudo.wheelNeedsPassword = false;
 
+  # === NIX-LD (for proprietary binaries like JetBrains) ===
+  programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    # X11 libs for JetBrains
+    xorg.libX11
+    xorg.libXext
+    xorg.libXi
+    xorg.libXrender
+    xorg.libXtst
+    xorg.libXcursor
+    xorg.libXrandr
+    xorg.libXfixes
+    xorg.libXinerama
+    xorg.libXxf86vm
+    # Other common libs
+    libGL
+    libxkbcommon
+    fontconfig
+    freetype
+    zlib
+    glib
+    icu
+    openssl
+    stdenv.cc.cc.lib
+  ];
+
   # === NIX SETTINGS ===
   nix.settings.experimental-features = [
     "nix-command"
@@ -80,10 +106,12 @@
   services.udisks2.enable = true;
   services.flatpak.enable = true;
 
-  # Flatpak apps visible in launcher
+  # Flatpak & local apps visible in launcher
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   environment.sessionVariables = {
-    XDG_DATA_DIRS = [ "/var/lib/flatpak/exports/share" "$HOME/.local/share/flatpak/exports/share" ];
+    XDG_DATA_DIRS = [ "$HOME/.local/share" "/var/lib/flatpak/exports/share" "$HOME/.local/share/flatpak/exports/share" ];
+    # JetBrains IDEs on Wayland
+    _JAVA_AWT_WM_NONREPARENTING = "1";
   };
 
   system.stateVersion = "25.11";

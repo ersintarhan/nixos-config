@@ -26,6 +26,7 @@
     nil # Nix language server
     nixd # Alternative Nix language server
     nixfmt-rfc-style # Nix formatter
+    jetbrains-toolbox # JetBrains IDE manager
 
     # === Development ===
     # Node.js
@@ -41,6 +42,13 @@
     # Python
     python3
     python3Packages.pip
+
+    # .NET (combined SDKs)
+    (with dotnetCorePackages; combinePackages [
+      sdk_8_0
+      sdk_9_0
+      sdk_10_0
+    ])
 
     # Build tools
     gcc
@@ -117,10 +125,18 @@
     # === XWayland ===
     xwayland-satellite
 
+    # X11 libs (JetBrains IDEs need these)
+    xorg.libX11
+    xorg.libXext
+    xorg.libXi
+    xorg.libXrender
+    xorg.libXtst
+
     # === Apps ===
     telegram-desktop
     gh # GitHub CLI
     appimage-run # AppImage support
+    github-desktop # Git GUI (native)
     gittyup # Git GUI
     lazygit # Terminal Git UI
 
