@@ -44,11 +44,14 @@
     python3Packages.pip
 
     # .NET (combined SDKs)
-    (with dotnetCorePackages; combinePackages [
-      sdk_8_0
-      sdk_9_0
-      sdk_10_0
-    ])
+    (
+      with dotnetCorePackages;
+      combinePackages [
+        sdk_8_0
+        sdk_9_0
+        sdk_10_0
+      ]
+    )
 
     # Build tools
     gcc
@@ -134,11 +137,13 @@
 
     # === Apps ===
     telegram-desktop
+    remmina # Remote desktop client (RDP, VNC, SSH)
     gh # GitHub CLI
     appimage-run # AppImage support
     github-desktop # Git GUI (native)
     gittyup # Git GUI
     lazygit # Terminal Git UI
+    youtube-music # Music streaming
 
     # === HashiCorp ===
     nomad
