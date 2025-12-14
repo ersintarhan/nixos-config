@@ -43,6 +43,9 @@
       pg_restore = ''
         nix shell nixpkgs#postgresql_18 --command pg_restore $argv
       '';
+      redis-cli = ''
+        nix shell nixpkgs#redis --command redis-cli $argv
+      '';
     };
 
     shellAbbrs = {
