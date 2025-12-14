@@ -8,7 +8,7 @@
     kitty
     zsh
     starship
-    yazi  # TUI file manager
+    yazi # TUI file manager
 
     # === Browser ===
     firefox
@@ -20,9 +20,9 @@
     # === Editor ===
     micro
     zed-editor
-    nil  # Nix language server
-    nixd  # Alternative Nix language server
-    nixfmt-rfc-style  # Nix formatter
+    nil # Nix language server
+    nixd # Alternative Nix language server
+    nixfmt-rfc-style # Nix formatter
 
     # === Development ===
     # Node.js
@@ -54,7 +54,7 @@
     swaylock-effects
     swayidle
     wlogout
-    swww  # wallpaper
+    swww # wallpaper
 
     # === Screenshot & Recording ===
     grim
@@ -71,7 +71,7 @@
 
     # === Brightness ===
     brightnessctl
-    ddcutil  # external monitor brightness
+    ddcutil # external monitor brightness
 
     # === Network ===
     networkmanagerapplet
@@ -104,6 +104,8 @@
     xdg-user-dirs
     pciutils
     usbutils
+    bat
+    zoxide
 
     # === Polkit Agent ===
     polkit_gnome
@@ -113,5 +115,10 @@
 
     # === Apps ===
     telegram-desktop
+    gh  # GitHub CLI
+    appimage-run  # AppImage support
+
+    # === AI Tools ===
+    amazon-q-cli
   ];
 }
