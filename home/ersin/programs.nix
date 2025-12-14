@@ -1,5 +1,10 @@
 # User Programs Configuration
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   # === Git ===
@@ -271,6 +276,8 @@
       };
     };
   };
+
+  programs.pgcli.enable = true;
 
   # === GPG ===
   programs.gpg.enable = true;
