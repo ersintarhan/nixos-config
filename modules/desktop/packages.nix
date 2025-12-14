@@ -159,7 +159,7 @@
 
     # === Database Toools ===
     sqlcmd
-    postgresql_18 # PostgreSQL 18 package (includes client tools)
+    # postgresql_18 is now provided on-demand via a shell function
     pgcli # PostgreSQL CLI
     pspg # PostgreSQL pager
     redli # Redis CLI alternative
