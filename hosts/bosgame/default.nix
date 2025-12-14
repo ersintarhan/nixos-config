@@ -20,9 +20,17 @@
   networking.networkmanager.enable = true;
 
   # === DNS (Consul) ===
-  networking.nameservers = [ "10.101.1.11" "10.101.1.12" "10.101.1.13" ];
-  networking.search = [ "consul" "node.consul" "service.consul" ];
-  networking.networkmanager.dns = "none";  # NM DNS'i yönetmesin
+  networking.nameservers = [
+    "10.101.1.11"
+    "10.101.1.12"
+    "10.101.1.13"
+  ];
+  networking.search = [
+    "consul"
+    "node.consul"
+    "service.consul"
+  ];
+  networking.networkmanager.dns = "none"; # NM DNS'i yönetmesin
 
   # === LOCALE & TIME ===
   time.timeZone = "Europe/Istanbul";
@@ -44,13 +52,21 @@
   users.users.ersin = {
     isNormalUser = true;
     description = "Ersin Tarhan";
-    extraGroups = [ "networkmanager" "wheel" "video" "audio" ];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "video"
+      "audio"
+    ];
     shell = pkgs.fish;
   };
   security.sudo.wheelNeedsPassword = false;
 
   # === NIX SETTINGS ===
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
   nix.gc = {
     automatic = true;
     dates = "weekly";

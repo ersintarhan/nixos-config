@@ -11,9 +11,19 @@
         position = "top";
         height = 34;
         spacing = 4;
-        modules-left = [ "niri/workspaces" "niri/window" ];
+        modules-left = [
+          "niri/workspaces"
+          "niri/window"
+        ];
         modules-center = [ "clock" ];
-        modules-right = [ "tray" "pulseaudio" "network" "bluetooth" "battery" "custom/power" ];
+        modules-right = [
+          "tray"
+          "pulseaudio"
+          "network"
+          "bluetooth"
+          "battery"
+          "custom/power"
+        ];
 
         "niri/workspaces" = {
           format = "{icon}";
@@ -44,7 +54,11 @@
           format-muted = " muted";
           format-icons = {
             headphone = "";
-            default = [ "" "" "" ];
+            default = [
+              ""
+              ""
+              ""
+            ];
           };
           on-click = "pavucontrol";
           on-click-right = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
@@ -73,7 +87,13 @@
           format = "{icon} {capacity}%";
           format-charging = " {capacity}%";
           format-plugged = " {capacity}%";
-          format-icons = [ "" "" "" "" "" ];
+          format-icons = [
+            ""
+            ""
+            ""
+            ""
+            ""
+          ];
         };
 
         "custom/power" = {

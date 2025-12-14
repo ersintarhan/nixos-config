@@ -115,13 +115,13 @@
 
     # === Apps ===
     telegram-desktop
-    gh  # GitHub CLI
-    appimage-run  # AppImage support
+    gh # GitHub CLI
+    appimage-run # AppImage support
 
     # === HashiCorp ===
     nomad
     consul
-    vault  # lazım olur
+    vault # lazım olur
 
     # === AI Tools ===
     amazon-q-cli

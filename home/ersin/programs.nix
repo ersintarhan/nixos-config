@@ -5,7 +5,7 @@
   # === Git ===
   programs.git = {
     enable = true;
-    lfs.enable = true;  # Git LFS
+    lfs.enable = true; # Git LFS
     settings = {
       user.name = "Ersin Tarhan";
       user.email = "ersintarhan@gmail.com";
@@ -32,7 +32,7 @@
       cleanup = "sudo nix-collect-garbage -d";
       gs = "git status";
       gp = "git push";
-      cat = "bat";  # bat as cat replacement
+      cat = "bat"; # bat as cat replacement
     };
     interactiveShellInit = ''
       set -g fish_greeting  # Disable greeting
@@ -192,10 +192,8 @@
   # === Direnv (auto-load dev environments) ===
   programs.direnv = {
     enable = true;
-    nix-direnv.enable = true;  # Faster nix integration
+    nix-direnv.enable = true; # Faster nix integration
   };
-
-
 
   # === SSH ===
   programs.ssh = {
@@ -244,8 +242,14 @@
     exec = "github-desktop-plus %U";
     icon = "github";
     terminal = false;
-    categories = [ "Development" "RevisionControl" ];
-    mimeType = [ "x-scheme-handler/x-github-client" "x-scheme-handler/github-mac" ];
+    categories = [
+      "Development"
+      "RevisionControl"
+    ];
+    mimeType = [
+      "x-scheme-handler/x-github-client"
+      "x-scheme-handler/github-mac"
+    ];
   };
 
   # === GPG ===

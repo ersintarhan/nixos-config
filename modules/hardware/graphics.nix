@@ -39,7 +39,7 @@
 
   # Useful GPU tools
   environment.systemPackages = with pkgs; [
-    mesa-demos  # glxinfo, glxgears etc.
+    mesa-demos # glxinfo, glxgears etc.
     vulkan-tools
     clinfo
     nvtopPackages.amd
