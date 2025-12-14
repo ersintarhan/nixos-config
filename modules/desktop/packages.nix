@@ -12,6 +12,9 @@
 
     # === Browser ===
     firefox
+    microsoft-edge
+    brave
+    # zen-browser  # Not in nixpkgs yet - can use AppImage
 
     # === File Manager ===
     nemo-with-extensions
@@ -117,6 +120,7 @@
     telegram-desktop
     gh # GitHub CLI
     appimage-run # AppImage support
+    github-desktop
 
     # === HashiCorp ===
     nomad

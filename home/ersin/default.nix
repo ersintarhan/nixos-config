@@ -63,6 +63,24 @@
 
   # XDG directories
   xdg.enable = true;
+
+  # Default applications (Edge as default browser)
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "text/html" = "microsoft-edge.desktop";
+      "x-scheme-handler/http" = "microsoft-edge.desktop";
+      "x-scheme-handler/https" = "microsoft-edge.desktop";
+      "x-scheme-handler/about" = "microsoft-edge.desktop";
+      "x-scheme-handler/unknown" = "microsoft-edge.desktop";
+      "application/xhtml+xml" = "microsoft-edge.desktop";
+      "application/x-extension-htm" = "microsoft-edge.desktop";
+      "application/x-extension-html" = "microsoft-edge.desktop";
+      "application/x-extension-shtml" = "microsoft-edge.desktop";
+      "application/x-extension-xhtml" = "microsoft-edge.desktop";
+      "application/x-extension-xht" = "microsoft-edge.desktop";
+    };
+  };
   xdg.userDirs = {
     enable = true;
     createDirectories = true;
