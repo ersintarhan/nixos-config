@@ -75,6 +75,7 @@
     slurp
     swappy
     wf-recorder
+    wev # Wayland event viewer (keyboard/mouse input debug)
 
     # === Media ===
     imv
@@ -113,6 +114,7 @@
     wget
     unzip
     htop
+    mission-center # System monitor (Task Manager style)
     btop
     fastfetch
     xdg-utils

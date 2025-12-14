@@ -238,7 +238,14 @@
         Mod+M { maximize-column; }
         Mod+W { toggle-column-tabbed-display; }
 
-        // ─── Screenshots ───
+        // ─── Screenshots (macOS style) ───
+        // Super+Shift+3: Full screen
+        Mod+Shift+3 { screenshot-screen; }
+        // Super+Shift+4: Selection
+        Mod+Shift+4 { screenshot; }
+        // Super+Shift+S: Selection → Swappy (edit/annotate)
+        Mod+Shift+S { spawn "sh" "-c" "grim -g \"$(slurp)\" - | swappy -f -"; }
+        // Fallback Print keys
         Print { screenshot; }
         Ctrl+Print { screenshot-screen; }
         Alt+Print { screenshot-window; }

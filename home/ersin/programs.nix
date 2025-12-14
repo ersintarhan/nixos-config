@@ -37,6 +37,12 @@
     interactiveShellInit = ''
       set -g fish_greeting  # Disable greeting
 
+      # macOS style 'open' command
+      function open
+        xdg-open $argv &>/dev/null &
+        disown
+      end
+
       # Load SSH keys into agent (once per session)
       if test -z "$SSH_KEYS_LOADED"
         ssh-add ~/.ssh/id_ed25519 2>/dev/null

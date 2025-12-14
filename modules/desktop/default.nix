@@ -25,7 +25,15 @@
     enable = true;
     wlr.enable = true;
     extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-    config.common.default = "*";
+    config = {
+      common.default = "*";
+      # Niri uses wlr portal for screen sharing
+      niri = {
+        default = [ "wlr" "gtk" ];
+        "org.freedesktop.impl.portal.ScreenCast" = "wlr";
+        "org.freedesktop.impl.portal.Screenshot" = "wlr";
+      };
+    };
   };
 
   # === POLKIT ===

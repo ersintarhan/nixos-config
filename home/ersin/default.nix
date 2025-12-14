@@ -69,6 +69,7 @@
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
+      # Browser
       "text/html" = "microsoft-edge.desktop";
       "x-scheme-handler/http" = "microsoft-edge.desktop";
       "x-scheme-handler/https" = "microsoft-edge.desktop";
@@ -80,6 +81,8 @@
       "application/x-extension-shtml" = "microsoft-edge.desktop";
       "application/x-extension-xhtml" = "microsoft-edge.desktop";
       "application/x-extension-xht" = "microsoft-edge.desktop";
+      # File manager
+      "inode/directory" = "nemo.desktop";
     };
   };
   xdg.userDirs = {
