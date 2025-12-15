@@ -18,6 +18,7 @@
     ./programs/foot.nix
     ./programs/starship.nix
     ./programs/ssh.nix
+    ./programs/git.nix
   ];
 
   home.username = "ersin";

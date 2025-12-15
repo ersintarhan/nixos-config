@@ -19,6 +19,15 @@
       redis-cli = ''
         nix shell nixpkgs#redis --command redis-cli $argv
       '';
+      sqlcmd = ''
+        nix shell nixpkgs#sqlcmd --command sqlcmd $argv
+      '';
+      k9s = ''
+        nix shell nixpkgs#k9s --command k9s $argv
+      '';
+      gh = ''
+        nix shell nixpkgs#gh --command gh $argv
+      '';
     };
 
     shellAbbrs = {

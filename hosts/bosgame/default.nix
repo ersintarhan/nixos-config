@@ -64,6 +64,7 @@
       "i2c" # For ddcutil (monitor brightness)
     ];
     shell = pkgs.fish;
+
   };
   security.sudo.wheelNeedsPassword = false;
 
@@ -124,7 +125,11 @@
   # Flatpak & local apps visible in launcher
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   environment.sessionVariables = {
-    XDG_DATA_DIRS = [ "$HOME/.local/share" "/var/lib/flatpak/exports/share" "$HOME/.local/share/flatpak/exports/share" ];
+    XDG_DATA_DIRS = [
+      "$HOME/.local/share"
+      "/var/lib/flatpak/exports/share"
+      "$HOME/.local/share/flatpak/exports/share"
+    ];
     # JetBrains IDEs on Wayland
     _JAVA_AWT_WM_NONREPARENTING = "1";
   };

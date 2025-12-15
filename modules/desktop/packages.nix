@@ -143,7 +143,6 @@
     # === Apps ===
     telegram-desktop
     remmina # Remote desktop client (RDP, VNC, SSH)
-    gh # GitHub CLI
     appimage-run # AppImage support
     github-desktop # Git GUI (native)
     gittyup # Git GUI
@@ -158,13 +157,8 @@
     podman-compose # docker-compose for podman
 
     # === Database Toools ===
-    sqlcmd
-    # postgresql_18 is now provided on-demand via a shell function
-    pgcli # PostgreSQL CLI
     pspg # PostgreSQL pager
-    redli # Redis CLI alternative
     redisinsight # Redis GUI
-    redis-dump # Redis dump tool
 
     # === HashiCorp ===
     nomad
@@ -173,8 +167,7 @@
 
     # === Kubernetes ===
     kubectl
-    kubernetes-helm
-    k9s # TUI for k8s
+    #k9s # TUI for k8s
     freelens-bin # Kubernetes IDE
 
     # === AI Tools ===
