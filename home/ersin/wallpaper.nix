@@ -96,7 +96,7 @@
     Service = {
       Type = "oneshot";
       # Pass the API key file path as an argument to the script
-      ExecStart = "${pkgs.bash}/bin/bash %h/.local/bin/random-wallpaper ${config.sops.secrets.wallhaven-api-key.path}";
+      ExecStart = "${pkgs.bash}/bin/bash %h/.local/bin/random-wallpaper ${config.sops.secrets.wallhaven_api_key.path}";
     };
   };
 

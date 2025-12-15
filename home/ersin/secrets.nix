@@ -29,7 +29,7 @@
       };
 
       # Wallhaven API Key
-      wallhaven-api-key = {
+      wallhaven_api_key = {
         path = "${config.home.homeDirectory}/.config/wallhaven-api-key";
         mode = "0000"; # Read-only, minimal permissions
       };
