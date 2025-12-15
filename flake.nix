@@ -48,6 +48,27 @@
             }
           ];
         };
+
+        ryzen = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./hosts/ryzen
+            sops-nix.nixosModules.sops
+            catppuccin.nixosModules.catppuccin
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.ersin = import ./home/ersin;
+              home-manager.sharedModules = [
+                sops-nix.homeManagerModules.sops
+                catppuccin.homeModules.catppuccin
+              ];
+              home-manager.extraSpecialArgs = { inherit inputs; };
+            }
+          ];
+        };
       };
     };
 }
