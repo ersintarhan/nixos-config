@@ -41,6 +41,10 @@
             # Automatically download flake inputs when needed
             # This fixes the "flake inputs are not available" warning
             options.autoArchive = true;
+            diagnostics = {
+              enable = true;
+              ignored = [ "unused_binding" ];
+            };
 
             # Additional nixd settings can go here
             # For example:

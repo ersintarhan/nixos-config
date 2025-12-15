@@ -24,8 +24,7 @@
     micro
     zed-editor
     antigravity-fhs # AI IDE (agentic development)
-    nil # Nix language server
-    nixd # Alternative Nix language server
+    nixd # Nix language server
     nixfmt-rfc-style # Nix formatter
     jetbrains-toolbox # JetBrains IDE manager
 
