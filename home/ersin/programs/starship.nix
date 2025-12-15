@@ -5,11 +5,11 @@
   programs.starship = {
     enable = true;
     enableFishIntegration = true; # Ensures starship works with fish
-    
+
     settings = {
       # Overall prompt format
       format = "$env_var$username$hostname$shell$directory$git_branch$git_status$nodejs$python$rust$dotnet$nix_shell$cmd_duration$line_break$character";
-      
+
       # Remove the newline between prompt and command for a compact look
       add_newline = false;
 
@@ -26,7 +26,7 @@
         style = "bold #F9E2AF"; # Yellow
         format = "@[$hostname]($style) "; # Added space for separation
       };
-      
+
       shell = {
         disabled = false;
         fish_indicator = "󰈺 "; # Fish icon
@@ -73,7 +73,7 @@
 
       # Command duration
       cmd_duration = {
-        min_time = 500; #ms
+        min_time = 500; # ms
         format = " took [$duration](bold #94E2D5)"; # Teal
       };
 
@@ -90,7 +90,7 @@
         format = "via [$symbol($version)]($style) ";
         style = "bold #A6E3A1"; # Green
       };
-      
+
       python = {
         symbol = " "; # Python icon
         format = "via [$symbol($version)]($style) ";

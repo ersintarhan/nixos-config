@@ -145,8 +145,9 @@
         Mod+Shift+Slash { show-hotkey-overlay; }
 
         // ─── Applications ───
-        Mod+Return hotkey-overlay-title="Terminal: Kitty" { spawn "kitty"; }
-        Mod+T hotkey-overlay-title="Terminal: Foot" { spawn "foot"; }
+        Mod+Return hotkey-overlay-title="Terminal: Foot" { spawn "foot"; }
+        Mod+T hotkey-overlay-title="Terminal: Kitty" { spawn "kitty"; }
+        Mod+Shift+T hotkey-overlay-title="Terminal: Alacritty" { spawn "alacritty"; }
         Mod+Space hotkey-overlay-title="App Launcher" { spawn "fuzzel"; }
         Mod+D hotkey-overlay-title="App Launcher: Wofi" { spawn "wofi" "--show" "drun"; }
         Mod+B hotkey-overlay-title="Browser: Microsoft Edge" { spawn "microsoft-edge"; }
