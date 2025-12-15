@@ -275,9 +275,9 @@
         Mod+Shift+P { power-off-monitors; }
 
         // ─── Mouse Bindings ───
-        BTN_SIDE { focus-column-left; }    // "Back" button
-        BTN_EXTRA { focus-column-right; }   // "Forward" button
-        BTN_MIDDLE { toggle-overview; }     // Middle click
+        MouseBack    { focus-column-left; }
+        MouseForward { focus-column-right; }
+        MouseMiddle  { toggle-overview; }
     }
   '';
 }

@@ -4,6 +4,7 @@
 {
   environment.systemPackages = with pkgs; [
     # === Terminal ===
+    alacritty
     foot
     kitty
     zsh
