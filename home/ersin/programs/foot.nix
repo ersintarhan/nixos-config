@@ -37,7 +37,7 @@
       # === URLs ===
       url = {
         launch = "xdg-open"; # Use system's default handler to open URLs
-        underline = "hover";
+        osc8-underline = "url-mode";
       };
 
       # === Colors (Catppuccin Mocha) ===
@@ -68,8 +68,8 @@
 
       # === Key Bindings ===
       key-bindings = {
-        scrollback-up-page = "Shift+PageUp";
-        scrollback-down-page = "Shift+PageDown";
+        scrollback-up-page = "Shift+Page_Up";
+        scrollback-down-page = "Shift+Page_Down";
         scrollback-up-line = "Shift+Up";
         scrollback-down-line = "Shift+Down";
         clipboard-copy = "Control+Shift+c";
@@ -79,7 +79,7 @@
         font-increase = "Control+plus";
         font-decrease = "Control+minus";
         font-reset = "Control+0";
-        url-select = "Control+Shift+u";
+        show-urls-launch = "Control+Shift+u";
       };
 
       # === Other settings ===
