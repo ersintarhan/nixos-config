@@ -51,13 +51,9 @@
       # Define a list of keywords
       KEYWORDS=("nature" "sports" "animals" "wild" "quote" "technology" "city" "space" "abstract" "car")
       # Get the number of keywords in the array
-      NUM_KEYWORDS=$ {
-        #KEYWORDS[@]
-      }
+      NUM_KEYWORDS=${#KEYWORDS[@]}
       # Select a random keyword from the array
-      RANDOM_KEYWORD=$ {
-        KEYWORDS[$((RANDOM % NUM_KEYWORDS))]
-      }
+      RANDOM_KEYWORD=${KEYWORDS[$((RANDOM % NUM_KEYWORDS))]}
       echo "Selected keyword: $RANDOM_KEYWORD"
   
       # --- Wallhaven API Call ---
