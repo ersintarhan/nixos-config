@@ -23,75 +23,87 @@
     };
   };
 
-  # Updated wallpaper script for Wallhaven API
-  home.file.".local/bin/random-wallpaper".text = ''
-    #!/bin/sh
-    # Set a cache directory
-    WALLPAPER_DIR="$HOME/.cache/wallpapers"
-    mkdir -p "$WALLPAPER_DIR"
-
-    # API Key file path is passed as the first argument from systemd.
-    API_KEY_FILE="$1"
-    # If no argument is provided (e.g., when run manually), default to a common path.
-    if [ -z "$API_KEY_FILE" ]; then
-      API_KEY_FILE="$HOME/.config/wallhaven-api-key"
-    fi
-
-    if [ ! -f "$API_KEY_FILE" ]; then
-      echo "Error: API key file not found at $API_KEY_FILE" >&2
-      exit 1
-    fi
-    API_KEY=$(cat "$API_KEY_FILE")
-    if [ -z "$API_KEY" ]; then
-      echo "Error: Wallhaven API key is empty. Check $API_KEY_FILE" >&2
-      exit 1
-    fi
-
-    # Wallhaven API parameters
-    # Resolution: 2K (2560x1440)
-    # Categories: General (100)
-    # Purity: SFW (100)
-    # Sorting: Random
-    # Ratios: 16x9 (for standard monitors)
-    API_URL="https://wallhaven.cc/api/v1/search?apikey=''${API_KEY}&q=nature%20city%20technology%20animals%20quote&categories=100&purity=100&atleast=1920x1080&sorting=random&ratios=16x9"
-    USER_AGENT="Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0"
-
-    # Fetch wallpaper list from Wallhaven API
-    API_RESPONSE=$(curl -s -L -A "$USER_AGENT" "$API_URL")
-
-    # Extract image URL using jq
-    # Fallback to an empty string if data[0].path is null or not found
-    IMAGE_URL=$(echo "$API_RESPONSE" | ${pkgs.jq}/bin/jq -r '.data[0].path // empty')
-
-    if [ -z "$IMAGE_URL" ] || [ "$IMAGE_URL" = "null" ]; then
-      echo "Failed to get a valid image URL from Wallhaven API." >&2
-      echo "API Response: $API_RESPONSE" >&2
-      exit 1
-    fi
-
-    # Download the actual wallpaper image
-    WALLPAPER_PATH="$WALLPAPER_DIR/wallpaper-$(date +%s).jpg"
-    if ! curl -L -A "$USER_AGENT" -o "$WALLPAPER_PATH" "$IMAGE_URL"; then
-        echo "Failed to download wallpaper from $IMAGE_URL. Exiting." >&2
-        exit 1
-    fi
-
-    # Wait for the swww-daemon to be ready (up to 5 seconds)
-    for i in $(seq 1 5); do
-      if swww query > /dev/null 2>&1; then
-        break
+    # Updated wallpaper script for Wallhaven API
+    home.file.".local/bin/random-wallpaper".text = ''
+      #!/bin/bash
+      # Set a cache directory
+      WALLPAPER_DIR="$HOME/.cache/wallpapers"
+      mkdir -p "$WALLPAPER_DIR"
+  
+      # API Key file path is passed as the first argument from systemd.
+      API_KEY_FILE="$1"
+      # If no argument is provided (e.g., when run manually), default to a common path.
+      if [ -z "$API_KEY_FILE" ]; then
+        API_KEY_FILE="$HOME/.config/wallhaven-api-key"
       fi
-      echo "Waiting for swww-daemon..."
-      sleep 1
-    done
-
-    # Set the wallpaper using swww
-    swww img "$WALLPAPER_PATH" --transition-type any --transition-pos bottom-right
-
-    # Keep the latest 10 wallpapers to save space
-    find "$WALLPAPER_DIR" -type f -name "wallpaper-*.jpg" | sort -r | tail -n +11 | xargs -r rm
-  '';
-  home.file.".local/bin/random-wallpaper".executable = true;
+  
+      if [ ! -f "$API_KEY_FILE" ]; then
+        echo "Error: API key file not found at $API_KEY_FILE" >&2
+        exit 1
+      fi
+      API_KEY=$(cat "$API_KEY_FILE")
+      if [ -z "$API_KEY" ]; then
+        echo "Error: Wallhaven API key is empty. Check $API_KEY_FILE" >&2
+        exit 1
+      fi
+  
+      # --- Random Keyword Selection ---
+      # Define a list of keywords
+      KEYWORDS=("nature" "sports" "animals" "wild" "quote" "technology" "city" "space" "abstract" "car")
+      # Get the number of keywords in the array
+      NUM_KEYWORDS=$ {
+        #KEYWORDS[@]
+      }
+      # Select a random keyword from the array
+      RANDOM_KEYWORD=$ {
+        KEYWORDS[$((RANDOM % NUM_KEYWORDS))]
+      }
+      echo "Selected keyword: $RANDOM_KEYWORD"
+  
+      # --- Wallhaven API Call ---
+      # Resolution: 2K (2560x1440)
+      # Categories: General (100)
+      # Purity: SFW (100)
+      # Sorting: Random
+      # Ratios: 16x9 (for standard monitors)
+      API_URL="https://wallhaven.cc/api/v1/search?apikey=''${API_KEY}&q=''${RANDOM_KEYWORD}&categories=100&purity=100&atleast=1920x1080&sorting=random&ratios=16x9"
+      USER_AGENT="Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0"
+      
+      # Fetch wallpaper list from Wallhaven API
+      API_RESPONSE=$(curl -s -L -A "$USER_AGENT" "$API_URL")
+      
+      # Extract image URL using jq
+      # Fallback to an empty string if data[0].path is null or not found
+      IMAGE_URL=$(echo "$API_RESPONSE" | ${pkgs.jq}/bin/jq -r '.data[0].path // empty')
+  
+      if [ -z "$IMAGE_URL" ] || [ "$IMAGE_URL" = "null" ]; then
+        echo "Failed to get a valid image URL from Wallhaven API for keyword '$RANDOM_KEYWORD'." >&2
+        echo "API Response: $API_RESPONSE" >&2
+        exit 1
+      fi
+  
+      # Download the actual wallpaper image
+      WALLPAPER_PATH="$WALLPAPER_DIR/wallpaper-$(date +%s).jpg"
+      if ! curl -L -A "$USER_AGENT" -o "$WALLPAPER_PATH" "$IMAGE_URL"; then
+          echo "Failed to download wallpaper from $IMAGE_URL. Exiting." >&2
+          exit 1
+      fi
+  
+      # Wait for the swww-daemon to be ready (up to 5 seconds)
+      for i in $(seq 1 5); do
+        if swww query > /dev/null 2>&1; then
+          break
+        fi
+        echo "Waiting for swww-daemon..."
+        sleep 1
+      done
+  
+      # Set the wallpaper using swww
+      swww img "$WALLPAPER_PATH" --transition-type any --transition-pos bottom-right
+  
+      # Keep the latest 10 wallpapers to save space
+      find "$WALLPAPER_DIR" -type f -name "wallpaper-*.jpg" | sort -r | tail -n +11 | xargs -r rm
+    '';  home.file.".local/bin/random-wallpaper".executable = true;
 
   # systemd service and timer for the script
   systemd.user.services.random-wallpaper = {
