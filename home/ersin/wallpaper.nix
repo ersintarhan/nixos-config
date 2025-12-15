@@ -25,7 +25,7 @@
 
     # Updated wallpaper script for Wallhaven API
     home.file.".local/bin/random-wallpaper".text = ''
-      #!/bin/bash
+      #!/usr/bin/env bash
       # Set a cache directory
       WALLPAPER_DIR="$HOME/.cache/wallpapers"
       mkdir -p "$WALLPAPER_DIR"
