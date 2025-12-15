@@ -67,7 +67,7 @@
         up_to_date = "";
         conflicted = "[=$count](#F38BA8)"; # Red
         style = "bold #F38BA8"; # Red
-        format = "([$staged$modified$untracked$deleted$renamed$conflicted$ahead_behind$untracked_files])";
+        format = "([$staged$modified$untracked$deleted$renamed$conflicted$ahead_behind])";
       };
 
       # Command duration
