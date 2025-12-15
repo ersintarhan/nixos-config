@@ -80,6 +80,7 @@
         font-decrease = "Control+minus";
         font-reset = "Control+0";
         show-urls-launch = "Control+Shift+u";
+        unicode-input = "none";
       };
 
       # === Other settings ===
