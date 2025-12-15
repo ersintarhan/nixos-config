@@ -16,7 +16,7 @@
 
       # === Behavior ===
       autosave = "on_focus_change";
-      format_on_save = "true";
+      format_on_save = "on";
       base_keymap = "VSCode";
 
       # === Telemetry ===
@@ -56,9 +56,6 @@
       "mcp-server-context7"
       "rust-snippets"
       "probe-rs"
-    ];
-
-    themes =[
       "catppuccin"
     ];
   };
