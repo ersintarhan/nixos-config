@@ -64,21 +64,23 @@
         };
       };
 
-      # Key bindings
-      key_bindings = [
-        { key = "V"; mods = "Control|Shift"; action = "Paste"; }
-        { key = "C"; mods = "Control|Shift"; action = "Copy"; }
-        { key = "PageUp"; mods = "Shift"; action = "ScrollPageUp"; }
-        { key = "PageDown"; mods = "Shift"; action = "ScrollPageDown"; }
-        { key = "Home"; mods = "Shift"; action = "ScrollToTop"; }
-        { key = "End"; mods = "Shift"; action = "ScrollToBottom"; }
-      ];
-
       # Mouse settings
       mouse = {
         hide_when_typing = true;
       };
       
+      # Keyboard settings (including key bindings)
+      keyboard = {
+        bindings = [
+          { key = "V"; mods = "Control|Shift"; action = "Paste"; }
+          { key = "C"; mods = "Control|Shift"; action = "Copy"; }
+          { key = "PageUp"; mods = "Shift"; action = "ScrollPageUp"; }
+          { key = "PageDown"; mods = "Shift"; action = "ScrollPageDown"; }
+          { key = "Home"; mods = "Shift"; action = "ScrollToTop"; }
+          { key = "End"; mods = "Shift"; action = "ScrollToBottom"; }
+        ];
+      };
+
       # Selection settings for copy-on-select
       selection.save_to_clipboard = true;
     };
