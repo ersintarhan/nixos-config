@@ -7,12 +7,14 @@ My personal NixOS + Home Manager configuration with Flakes, featuring a modular 
 - **Flakes** - Reproducible system configuration
 - **Home Manager** - Declarative user environment management
 - **sops-nix** - Encrypted secrets (SSH keys, kubeconfig, etc.)
+- **Catppuccin/nix** - Unified Mocha theme with lavender accent across all apps
 - **Niri** - Scrollable tiling Wayland compositor
 - **Waybar + Mako** - Status bar and notifications
+- **Rofi** - App launcher with calculator and emoji plugins
 - **Fish shell** - Modern shell with starship prompt
-- **Catppuccin Mocha** - Consistent dark theme across apps
 - **ROCm** - AMD GPU compute support
-- **Development tools** - Node.js, Rust, Python, kubectl, Helm
+- **Distrobox** - Arch Linux container for AUR packages
+- **Development tools** - Node.js, Rust, Python, .NET, kubectl, Helm
 
 ## Structure
 
@@ -27,7 +29,7 @@ nixos-config/
 │       ├── default.nix       # Host configuration
 │       └── hardware.nix      # Hardware (generated)
 │
-├── modules/                  # Shared modules
+├── modules/                  # Shared NixOS modules
 │   ├── desktop/
 │   │   ├── default.nix       # Niri, portals, fonts
 │   │   └── packages.nix      # System packages
@@ -39,12 +41,33 @@ nixos-config/
 │
 ├── home/                     # Home Manager configs
 │   └── ersin/
-│       ├── default.nix       # Main home config, themes
-│       ├── programs.nix      # Git, Fish, SSH, Kitty, etc.
-│       ├── secrets.nix       # SOPS secret definitions
-│       ├── niri.nix          # Compositor keybindings
+│       ├── default.nix       # Main home config, GTK/Qt themes
+│       ├── catppuccin.nix    # Catppuccin global settings
+│       ├── niri.nix          # Compositor config & keybindings
 │       ├── waybar.nix        # Status bar
-│       └── mako.nix          # Notifications
+│       ├── mako.nix          # Notifications
+│       ├── distrobox.nix     # Arch container setup
+│       ├── wallpaper.nix     # Desktop wallpaper
+│       ├── secrets.nix       # SOPS secret definitions
+│       ├── programs.nix      # CLI tools & shell config
+│       │
+│       └── programs/         # Modular program configs
+│           ├── fish.nix      # Fish shell + abbreviations
+│           ├── starship.nix  # Prompt
+│           ├── kitty.nix     # Kitty terminal
+│           ├── foot.nix      # Foot terminal
+│           ├── alacritty.nix # Alacritty terminal
+│           ├── rofi.nix      # App launcher
+│           ├── fuzzel.nix    # Fuzzel launcher (backup)
+│           ├── zed.nix       # Zed editor
+│           ├── micro.nix     # Micro editor
+│           ├── git.nix       # Git config
+│           ├── ssh.nix       # SSH config
+│           ├── k9s.nix       # Kubernetes TUI
+│           ├── firefox.nix   # Firefox + catppuccin
+│           ├── vivid.nix     # LS_COLORS
+│           ├── eza.nix       # Modern ls
+│           └── bash.nix      # Bash config
 │
 └── secrets/                  # Encrypted secrets (safe to commit)
     └── secrets.yaml          # SSH keys, kubeconfig (GPG encrypted)
@@ -61,7 +84,7 @@ nixos-config/
 
 ```bash
 # Clone the repo
-git clone https://github.com/yourusername/nixos-config.git ~/nixos-config
+git clone https://github.com/ersinergin/nixos-config.git ~/nixos-config
 cd ~/nixos-config
 
 # Import your GPG key
@@ -141,6 +164,7 @@ nixosConfigurations = {
     modules = [
       ./hosts/newhost
       sops-nix.nixosModules.sops
+      catppuccin.nixosModules.catppuccin
       home-manager.nixosModules.home-manager
       {
         home-manager.useGlobalPkgs = true;
@@ -148,7 +172,9 @@ nixosConfigurations = {
         home-manager.users.ersin = import ./home/ersin;
         home-manager.sharedModules = [
           sops-nix.homeManagerModules.sops
+          catppuccin.homeModules.catppuccin
         ];
+        home-manager.extraSpecialArgs = { inherit inputs; };
       }
     ];
   };
@@ -164,18 +190,32 @@ sudo nixos-rebuild switch --flake ~/nixos-config#newhost
 
 | Key | Action |
 |-----|--------|
-| `Mod+Return` | Kitty terminal |
-| `Mod+T` | Foot terminal |
-| `Mod+Space` | Fuzzel launcher |
+| `Mod+Return` | Foot terminal |
+| `Mod+T` | Kitty terminal |
+| `Mod+Shift+T` | Alacritty terminal |
+| `Mod+Space` | Rofi launcher |
+| `Mod+D` | Rofi launcher |
 | `Mod+E` | Nemo file manager |
-| `Mod+B` | Firefox |
+| `Mod+Y` | Yazi file manager |
+| `Mod+B` | Microsoft Edge |
 | `Mod+Q` | Close window |
 | `Mod+F` | Fullscreen |
 | `Mod+V` | Toggle float |
 | `Mod+1-9` | Switch workspace |
 | `Mod+Shift+1-9` | Move to workspace |
-| `Print` | Screenshot |
+| `Print` | Screenshot (area) |
+| `Mod+Print` | Screenshot (window) |
 | `Mod+O` | Overview |
+| `Super+Alt+L` | Lock screen |
+
+### Rofi Modes
+
+- **drun** - Application launcher (default)
+- **run** - Run commands
+- **calc** - Calculator
+- **emoji** - Emoji picker
+
+Press `Ctrl+Tab` in Rofi to switch between modes.
 
 ## Useful Commands
 
@@ -201,7 +241,25 @@ nvtop
 
 # System info
 fastfetch
+
+# Distrobox (Arch)
+distrobox enter arch
 ```
+
+## Catppuccin Theme
+
+This config uses [catppuccin/nix](https://github.com/catppuccin/nix) for unified theming:
+
+```nix
+# home/ersin/catppuccin.nix
+catppuccin = {
+  enable = true;
+  flavor = "mocha";
+  accent = "lavender";
+};
+```
+
+Apps automatically themed: bat, btop, fish, starship, k9s, vivid, firefox, micro, fzf, and more.
 
 ## Acknowledgments
 
@@ -210,6 +268,7 @@ fastfetch
 - [sops-nix](https://github.com/Mic92/sops-nix)
 - [Niri](https://github.com/YaLTeR/niri)
 - [Catppuccin](https://github.com/catppuccin/catppuccin)
+- [catppuccin/nix](https://github.com/catppuccin/nix)
 
 ## License
 
