@@ -21,6 +21,7 @@
     ./programs/git.nix
     ./programs/zed.nix
     ./programs/bash.nix
+    ./programs/alacritty.nix
   ];
 
   home.username = "ersin";
