@@ -20,6 +20,7 @@
     ./programs/ssh.nix
     ./programs/git.nix
     ./programs/zed.nix
+    ./programs/bash.nix
   ];
 
   home.username = "ersin";
