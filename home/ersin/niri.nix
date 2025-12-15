@@ -253,6 +253,7 @@
         Alt+Print { screenshot-window; }
 
         // ─── System ───
+        Mod+Shift+W hotkey-overlay-title="Next Wallpaper" { spawn "random-wallpaper"; }
         Mod+O repeat=false { toggle-overview; }
         Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
         Mod+Shift+E { quit; }
