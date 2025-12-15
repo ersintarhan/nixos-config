@@ -29,6 +29,7 @@
     ./programs/firefox.nix
     ./programs/micro.nix
     ./programs/eza.nix
+    ./programs/anyrun.nix
   ];
 
   home.username = "ersin";

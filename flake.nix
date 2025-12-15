@@ -15,6 +15,11 @@
     };
 
     catppuccin.url = "github:catppuccin/nix";
+
+    anyrun = {
+      url = "github:anyrun-org/anyrun";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -24,6 +29,7 @@
       home-manager,
       sops-nix,
       catppuccin,
+      anyrun,
       ...
     }@inputs:
     {
@@ -43,6 +49,7 @@
               home-manager.sharedModules = [
                 sops-nix.homeManagerModules.sops
                 catppuccin.homeModules.catppuccin
+                anyrun.homeManagerModules.default
               ];
             }
           ];

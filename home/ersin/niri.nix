@@ -154,8 +154,8 @@
         Mod+Return hotkey-overlay-title="Terminal: Foot" { spawn "foot"; }
         Mod+T hotkey-overlay-title="Terminal: Kitty" { spawn "kitty"; }
         Mod+Shift+T hotkey-overlay-title="Terminal: Alacritty" { spawn "alacritty"; }
-        Mod+Space hotkey-overlay-title="App Launcher" { spawn "fuzzel"; }
-        Mod+D hotkey-overlay-title="App Launcher" { spawn "fuzzel"; }
+        Mod+Space hotkey-overlay-title="App Launcher" { spawn "anyrun"; }
+        Mod+D hotkey-overlay-title="App Launcher" { spawn "anyrun"; }
         Mod+B hotkey-overlay-title="Browser: Microsoft Edge" { spawn "microsoft-edge"; }
         Mod+E hotkey-overlay-title="File Manager: Nemo" { spawn "nemo"; }
         Mod+Y hotkey-overlay-title="File Manager: Yazi" { spawn "kitty" "-e" "yazi"; }
