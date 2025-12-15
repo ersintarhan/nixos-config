@@ -5,7 +5,7 @@
   programs.bash = {
     enable = true; # Ensure bash is enabled in Home Manager
 
-    extraInit = ''
+    initExtra = ''
       # Add .NET Core SDK tools to PATH
       export PATH="$PATH:$HOME/.dotnet/tools"
     '';
