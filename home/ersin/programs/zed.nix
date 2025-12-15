@@ -13,13 +13,7 @@
     extraPackages = [ pkgs.nixd ];
 
     userSettings = {
-      # === Theme and Appearance ===
-      theme = "Catppuccin Mocha";
-      icon_theme = {
-        mode = "dark";
-        light = "Zed (Default)";
-        dark = "Catppuccin Macchiato";
-      };
+      # === Theme and Appearance (catppuccin manages theme) ===
       ui_font_size = 16;
       buffer_font_size = 14;
       buffer_font_family = "JetBrains Mono";

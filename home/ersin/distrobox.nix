@@ -24,13 +24,11 @@
       };
 
       # Arch Linux - shared home, quick access
+      # paru: git clone https://aur.archlinux.org/paru-bin.git && cd paru-bin && makepkg -si
       arch = {
         image = "archlinux:latest";
         entry = true;
         additional_packages = "base-devel git fish";
-        init_hooks = [
-          "git clone https://aur.archlinux.org/paru-bin.git /tmp/paru && cd /tmp/paru && makepkg -si --noconfirm && rm -rf /tmp/paru"
-        ];
       };
     };
   };

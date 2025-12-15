@@ -64,7 +64,6 @@
     waybar
     mako
     fuzzel
-    wofi
     wl-clipboard
     cliphist
     swaylock-effects

@@ -22,9 +22,6 @@
       sqlcmd = ''
         nix shell nixpkgs#sqlcmd --command sqlcmd $argv
       '';
-      k9s = ''
-        nix shell nixpkgs#k9s --command k9s $argv
-      '';
       hcloud = ''
         nix shell nixpkgs#hcloud --command hcloud $argv
       '';
@@ -46,7 +43,6 @@
       cleanup = "sudo nix-collect-garbage -d";
       gs = "git status";
       gp = "git push";
-      cat = "bat"; # bat as cat replacement
     };
     interactiveShellInit = ''
       # Add .NET Core SDK tools to PATH

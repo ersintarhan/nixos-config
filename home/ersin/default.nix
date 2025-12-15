@@ -11,6 +11,7 @@
     ./secrets.nix
     ./distrobox.nix
     ./wallpaper.nix
+    ./catppuccin.nix
 
     # Modularized program configurations
     ./programs/fish.nix
@@ -22,6 +23,10 @@
     ./programs/zed.nix
     ./programs/bash.nix
     ./programs/alacritty.nix
+    ./programs/fuzzel.nix
+    ./programs/k9s.nix
+    ./programs/vivid.nix
+    ./programs/firefox.nix
   ];
 
   home.username = "ersin";
@@ -35,38 +40,21 @@
     # Add user-specific packages here
   ];
 
-  # === GTK Theme (Dark) ===
+  # === GTK Theme (catppuccin manages theme and icons) ===
   gtk = {
     enable = true;
-    theme = {
-      name = "Adwaita-dark";
-      package = pkgs.gnome-themes-extra;
-    };
-    iconTheme = {
-      name = "Papirus-Dark";
-      package = pkgs.papirus-icon-theme;
-    };
     cursorTheme = {
       name = "Adwaita";
       package = pkgs.adwaita-icon-theme;
       size = 24;
     };
-    gtk3.extraConfig = {
-      gtk-application-prefer-dark-theme = true;
-    };
-    gtk4.extraConfig = {
-      gtk-application-prefer-dark-theme = true;
-    };
   };
 
-  # === Qt Theme (Dark) ===
+  # === Qt Theme ===
   qt = {
     enable = true;
-    platformTheme.name = "adwaita";
-    style = {
-      name = "adwaita-dark";
-      package = pkgs.adwaita-qt;
-    };
+    platformTheme.name = "kvantum";
+    style.name = "kvantum";
   };
 
   # === Dark mode for apps ===

@@ -13,6 +13,8 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    catppuccin.url = "github:catppuccin/nix";
   };
 
   outputs =
@@ -21,6 +23,7 @@
       nixpkgs,
       home-manager,
       sops-nix,
+      catppuccin,
       ...
     }@inputs:
     {
@@ -31,6 +34,7 @@
           modules = [
             ./hosts/bosgame
             sops-nix.nixosModules.sops
+            catppuccin.nixosModules.catppuccin
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
@@ -38,6 +42,7 @@
               home-manager.users.ersin = import ./home/ersin;
               home-manager.sharedModules = [
                 sops-nix.homeManagerModules.sops
+                catppuccin.homeModules.catppuccin
               ];
             }
           ];

@@ -8,7 +8,7 @@
 
     settings = {
       # Overall prompt format
-      format = "$env_var$username$hostname$shell$directory$git_branch$git_status$nodejs$python$rust$dotnet$nix_shell$cmd_duration$line_break$character";
+      format = "$container$env_var$username$hostname$shell$directory$git_branch$git_status$nodejs$python$rust$dotnet$nix_shell$cmd_duration$line_break$character";
 
       # Remove the newline between prompt and command for a compact look
       add_newline = false;
@@ -114,6 +114,13 @@
         symbol = "❄️ "; # Snowflake icon
         format = "[$symbol]($style)";
         style = "bold #89B4FA"; # Blue
+      };
+
+      # Container (distrobox/docker/podman)
+      container = {
+        symbol = "📦 ";
+        format = "[$symbol$name]($style) ";
+        style = "bold #F5C2E7"; # Pink
       };
     };
   };
