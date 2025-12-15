@@ -32,9 +32,4 @@
       };
     };
   };
-
-  # This is related to SSH but is a file definition,
-  # it's better to keep it with other file definitions in programs.nix
-  # or move it to a dedicated secrets/files management module.
-  # For now, it will be moved back to programs.nix to keep this file clean.
 }
