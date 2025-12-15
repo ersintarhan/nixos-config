@@ -31,7 +31,7 @@
 
     # === Development ===
     # Node.js
-    nodejs_22
+    nodejs_25
     pnpm
     yarn
 
@@ -126,6 +126,9 @@
     lm_sensors # CPU temperature monitoring
     bat
     zoxide
+    p7zip
+    bruno
+    bruno-cli
 
     # === Polkit Agent ===
     polkit_gnome
@@ -167,11 +170,11 @@
 
     # === Kubernetes ===
     kubectl
-    #k9s # TUI for k8s
     freelens-bin # Kubernetes IDE
 
     # === AI Tools ===
-    amazon-q-cli
+    #amazon-q-cli
+    gh
     github-copilot-cli
     gh-copilot # gh extension for copilot
   ];

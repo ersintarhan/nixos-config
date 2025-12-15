@@ -25,12 +25,19 @@
       k9s = ''
         nix shell nixpkgs#k9s --command k9s $argv
       '';
-      gh = ''
-        nix shell nixpkgs#gh --command gh $argv
-      '';
       hcloud = ''
         nix shell nixpkgs#hcloud --command hcloud $argv
       '';
+      q = ''
+        nix shell nixpkgs#amazon-q-cli --command amazon-q $argv
+      '';
+      gau = ''
+        nix shell nixpkgs#gau --command gau $argv
+      '';
+      wbu = ''
+        nix shell nixpkgs#waybackurls --command waybackurls $argv
+      '';
+
     };
 
     shellAbbrs = {
