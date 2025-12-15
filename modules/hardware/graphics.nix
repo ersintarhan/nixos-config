@@ -41,6 +41,7 @@
   environment.systemPackages = with pkgs; [
     mesa-demos # glxinfo, glxgears etc.
     vulkan-tools
+    libva-utils # vainfo
     clinfo
     nvtopPackages.amd
 

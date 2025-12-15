@@ -117,16 +117,18 @@ nixos-config/
 
 ### ryzen - Secondary Mini PC
 
+[🔗 Hardware Probe](https://linux-hardware.org/?probe=52b73c2ad7)
+
 | Component | Specification |
 |-----------|---------------|
 | **Model** | HM24 Mini-PC HM247837 |
 | **CPU** | AMD Ryzen 9 6900HX (8 cores / 16 threads) |
-| **GPU** | AMD Radeon 680M (integrated, RDNA 2) |
-| **RAM** | 64GB DDR5 |
-| **Storage** | 1TB SSD |
+| **GPU** | AMD Radeon 680M (Rembrandt, RDNA 2) |
+| **RAM** | 64GB DDR5 5600MT/s (2×32GB Kingston) |
+| **Storage** | 1TB Kingston NV2 NVMe |
+| **Network** | Intel I226-V 2.5GbE + Realtek RTL8851BE WiFi |
+| **Ports** | USB4/Thunderbolt, USB-C, USB-A |
 | **Graphics Module** | `graphics-basic.nix` (no ROCm) |
-
-> 📝 Hardware probe for ryzen will be added after setup.
 
 ## Quick Start
 
