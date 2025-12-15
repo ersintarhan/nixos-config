@@ -49,6 +49,9 @@
       cat = "bat"; # bat as cat replacement
     };
     interactiveShellInit = ''
+      # Add .NET Core SDK tools to PATH
+      set -q fish_user_paths; and fish_add_path ~/.dotnet/tools
+
       set -g fish_greeting  # Disable greeting
 
       # macOS style 'open' command
