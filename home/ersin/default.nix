@@ -27,6 +27,8 @@
     ./programs/k9s.nix
     ./programs/vivid.nix
     ./programs/firefox.nix
+    ./programs/micro.nix
+    ./programs/eza.nix
   ];
 
   home.username = "ersin";
@@ -40,13 +42,23 @@
     # Add user-specific packages here
   ];
 
-  # === GTK Theme (catppuccin manages theme and icons) ===
+  # === GTK Theme (catppuccin manages icons) ===
   gtk = {
     enable = true;
+    theme = {
+      name = "Adwaita-dark";
+      package = pkgs.gnome-themes-extra;
+    };
     cursorTheme = {
       name = "Adwaita";
       package = pkgs.adwaita-icon-theme;
       size = 24;
+    };
+    gtk3.extraConfig = {
+      gtk-application-prefer-dark-theme = true;
+    };
+    gtk4.extraConfig = {
+      gtk-application-prefer-dark-theme = true;
     };
   };
 

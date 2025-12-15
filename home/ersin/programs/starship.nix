@@ -23,7 +23,7 @@
 
       hostname = {
         ssh_only = false;
-        style = "bold #F9E2AF"; # Yellow
+        style = "bold #B4BEFE"; # Lavender
         format = "@[$hostname]($style) "; # Added space for separation
       };
 

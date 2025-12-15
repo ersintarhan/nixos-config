@@ -38,7 +38,7 @@
     };
 
     shellAbbrs = {
-      ll = "ls -la";
+      # ll handled by eza integration
       update = "sudo nixos-rebuild switch --flake ~/nixos-config#bosgame";
       cleanup = "sudo nix-collect-garbage -d";
       gs = "git status";

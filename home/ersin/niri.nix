@@ -85,11 +85,17 @@
         open-floating true
     }
     window-rule {
-        match app-id="blueman-manager"
+        match app-id=r#"blueman-manager"#
         open-floating true
+        default-floating-size 530 500
     }
     window-rule {
-        match app-id="pavucontrol"
+        match app-id=r#"pavucontrol"#
+        open-floating true
+        default-floating-size 520 700
+    }
+    window-rule {
+        match app-id="xdg-desktop-portal-gtk"
         open-floating true
     }
 
