@@ -12,6 +12,8 @@
   home.sessionVariables = {
     CONSUL_HTTP_ADDR = "http://10.101.1.11:8500";
     NOMAD_ADDR = "http://10.101.1.21:4646";
+    TERMINAL = "foot"; # Default terminal
+    EDITOR = "micro"; # Default editor
   };
 
   # === Zoxide (smart cd) ===
