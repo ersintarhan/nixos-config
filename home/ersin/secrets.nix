@@ -5,7 +5,7 @@
   sops = {
     # GPG key for decryption
     gnupg.home = "${config.home.homeDirectory}/.gnupg";
-    gnupg.sshKeyPaths = []; # GPG kullanıyoruz, SSH değil
+    gnupg.sshKeyPaths = [ ]; # GPG kullanıyoruz, SSH değil
 
     # Default secrets file
     defaultSopsFile = ../../secrets/secrets.yaml;

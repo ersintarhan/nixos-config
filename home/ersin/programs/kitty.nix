@@ -1,5 +1,4 @@
 # Kitty Terminal Configuration
-{ config, pkgs, ... }:
 
 {
   programs.kitty = {

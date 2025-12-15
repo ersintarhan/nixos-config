@@ -1,5 +1,4 @@
 # Niri Configuration (Home Manager)
-{ config, pkgs, ... }:
 
 {
   # Niri config file

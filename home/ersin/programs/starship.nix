@@ -1,5 +1,4 @@
 # Starship Prompt Configuration
-{ config, pkgs, ... }:
 
 {
   programs.starship = {

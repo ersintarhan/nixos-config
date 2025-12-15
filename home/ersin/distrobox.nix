@@ -1,5 +1,4 @@
 # Distrobox Containers Configuration
-{ config, pkgs, ... }:
 
 {
   programs.distrobox = {

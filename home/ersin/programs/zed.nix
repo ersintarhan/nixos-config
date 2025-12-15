@@ -41,14 +41,24 @@
             # Automatically download flake inputs when needed
             # This fixes the "flake inputs are not available" warning
             options.autoArchive = true;
-            diagnostics = {
-              enable = true;
-              ignored = [ "unused_binding" ];
+            suppress = {
+              ignored = [ "sema-extra-with" ];
             };
-
-            # Additional nixd settings can go here
-            # For example:
-            # formatting.command = "nixfmt-rfc-style";
+          };
+        };
+        # Configure nil for Nix language support
+        nil = {
+          # These settings are passed to nil
+          settings.nil = {
+            # Automatically download flake inputs when needed
+            # This fixes the "flake inputs are not available" warning
+            options.autoArchive = true;
+            diagnostics = {
+              ignored = [
+                "unused_with"
+                "unused_binding"
+              ];
+            };
           };
         };
       };

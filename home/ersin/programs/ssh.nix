@@ -1,5 +1,4 @@
 # SSH Configuration
-{ config, pkgs, ... }:
 
 {
   programs.ssh = {
