@@ -48,7 +48,7 @@
     # Purity: SFW (100)
     # Sorting: Random
     # Ratios: 16x9 (for standard monitors)
-    API_URL="https://wallhaven.cc/api/v1/search?apikey=\${API_KEY}&q=nature&categories=100&purity=100&atleast=2560x1440&sorting=random&ratios=16x9"
+    API_URL="https://wallhaven.cc/api/v1/search?apikey=''${API_KEY}&q=nature&categories=100&purity=100&atleast=2560x1440&sorting=random&ratios=16x9"
     USER_AGENT="Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0"
     
     # Fetch wallpaper list from Wallhaven API
