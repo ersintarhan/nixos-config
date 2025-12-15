@@ -7,7 +7,7 @@
     # Add nixd to Zed's PATH for Nix language support
     extraPackages = [ pkgs.nixd ];
 
-    settings = {
+    userSettings = {
       # === Theme and Appearance ===
       theme = "Catppuccin Mocha";
       ui_font_size = 14;
