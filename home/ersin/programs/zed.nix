@@ -57,5 +57,9 @@
       "rust-snippets"
       "probe-rs"
     ];
+
+    themes =[
+      "catppuccin"
+    ];
   };
 }
