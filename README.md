@@ -99,10 +99,34 @@ nixos-config/
 
 ## Hosts
 
-| Host | Description | GPU | Graphics Module |
-|------|-------------|-----|-----------------|
-| `bosgame` | Main workstation | AMD Radeon (discrete) | `graphics.nix` (ROCm) |
-| `ryzen` | Mini PC | AMD Radeon 680M (integrated) | `graphics-basic.nix` |
+### bosgame - Main Workstation
+
+[🔗 Hardware Probe](https://linux-hardware.org/?probe=a0cd9bd643)
+
+| Component | Specification |
+|-----------|---------------|
+| **Model** | Bosgame AXB35-02 Mini PC |
+| **CPU** | AMD Ryzen AI MAX+ 395 (32 cores / 64 threads) |
+| **GPU** | AMD Radeon 8060S (Strix Halo, RDNA 3.5) |
+| **NPU** | AMD XDNA Neural Processing Unit |
+| **RAM** | 128GB LPDDR5 8000MT/s (8×16GB Samsung) |
+| **Storage** | 2TB Kingston NVMe |
+| **Network** | Realtek RTL8125 2.5GbE + MediaTek WiFi |
+| **Ports** | USB4/Thunderbolt, USB-C, USB-A |
+| **Graphics Module** | `graphics.nix` (ROCm enabled) |
+
+### ryzen - Secondary Mini PC
+
+| Component | Specification |
+|-----------|---------------|
+| **Model** | HM24 Mini-PC HM247837 |
+| **CPU** | AMD Ryzen 9 6900HX (8 cores / 16 threads) |
+| **GPU** | AMD Radeon 680M (integrated, RDNA 2) |
+| **RAM** | 64GB DDR5 |
+| **Storage** | 1TB SSD |
+| **Graphics Module** | `graphics-basic.nix` (no ROCm) |
+
+> 📝 Hardware probe for ryzen will be added after setup.
 
 ## Quick Start
 
