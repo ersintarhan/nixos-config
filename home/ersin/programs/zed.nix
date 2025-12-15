@@ -1,5 +1,10 @@
 # Zed Editor Configuration
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   programs.zed-editor = {
@@ -10,10 +15,14 @@
     userSettings = {
       # === Theme and Appearance ===
       theme = "Catppuccin Mocha";
-      ui_font_size = 14;
-      buffer_font_size = 13;
+      icon_theme = {
+        mode = "dark";
+        light = "Zed (Default)";
+        dark = "Catppuccin Macchiato";
+      };
+      ui_font_size = 16;
+      buffer_font_size = 14;
       buffer_font_family = "JetBrains Mono";
-
       # === Behavior ===
       autosave = "on_focus_change";
       format_on_save = "on";
@@ -44,8 +53,8 @@
     # === Extensions ===
     # List of extensions to automatically install from Zed's registry
     extensions = [
-      "nix"  # Official Nix language extension
-      "dockerfile"  # Official Dockerfile language extension
+      "nix" # Official Nix language extension
+      "dockerfile" # Official Dockerfile language extension
       "vue"
       "csharp"
       "zig"
