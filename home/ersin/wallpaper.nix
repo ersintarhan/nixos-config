@@ -53,12 +53,12 @@
     # Purity: SFW (100)
     # Sorting: Random
     # Ratios: 16x9 (for standard monitors)
-    API_URL="https://wallhaven.cc/api/v1/search?apikey=''${API_KEY}&q=nature&categories=100&purity=100&atleast=2560x1440&sorting=random&ratios=16x9"
+    API_URL="https://wallhaven.cc/api/v1/search?apikey=''${API_KEY}&q=nature%20city%20technology%20animals%20quote&categories=100&purity=100&atleast=1920x1080&sorting=random&ratios=16x9"
     USER_AGENT="Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0"
-    
+
     # Fetch wallpaper list from Wallhaven API
     API_RESPONSE=$(curl -s -L -A "$USER_AGENT" "$API_URL")
-    
+
     # Extract image URL using jq
     # Fallback to an empty string if data[0].path is null or not found
     IMAGE_URL=$(echo "$API_RESPONSE" | ${pkgs.jq}/bin/jq -r '.data[0].path // empty')
