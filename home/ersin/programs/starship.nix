@@ -66,8 +66,9 @@
         diverged = "⇕$ahead$behind";
         up_to_date = "";
         conflicted = "[=$count](#F38BA8)"; # Red
+        # More robust format string, each item is its own group
+        format = "([$conflicted$staged$modified$untracked$renamed$deleted$ahead_behind]($style))";
         style = "bold #F38BA8"; # Red
-        format = "([$staged$modified$untracked$deleted$renamed$conflicted$ahead_behind])";
       };
 
       # Command duration
