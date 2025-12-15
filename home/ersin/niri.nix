@@ -79,6 +79,20 @@
         open-floating true
     }
 
+    // Waybar applets as floating dialogs
+    window-rule {
+        match app-id="nm-connection-editor"
+        open-floating true
+    }
+    window-rule {
+        match app-id="blueman-manager"
+        open-floating true
+    }
+    window-rule {
+        match app-id="pavucontrol"
+        open-floating true
+    }
+
     // All windows: no rounded corners
     window-rule {
         geometry-corner-radius 0
