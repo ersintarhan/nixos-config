@@ -39,7 +39,7 @@
 
     shellAbbrs = {
       # ll handled by eza integration
-      update = "sudo nixos-rebuild switch --flake ~/nixos-config#bosgame";
+      update = "sudo nixos-rebuild switch --flake ~/nixos-config#(hostname)";
       cleanup = "sudo nix-collect-garbage -d";
       gs = "git status";
       gp = "git push";
