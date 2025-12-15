@@ -44,7 +44,7 @@
                 sops-nix.homeManagerModules.sops
                 catppuccin.homeModules.catppuccin
               ];
-              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.extraSpecialArgs = { inherit inputs; hostname = "bosgame"; };
             }
           ];
         };
@@ -65,7 +65,7 @@
                 sops-nix.homeManagerModules.sops
                 catppuccin.homeModules.catppuccin
               ];
-              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.extraSpecialArgs = { inherit inputs; hostname = "ryzen"; };
             }
           ];
         };

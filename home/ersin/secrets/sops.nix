@@ -8,7 +8,7 @@
     gnupg.sshKeyPaths = [ ]; # GPG kullanıyoruz, SSH değil
 
     # Default secrets file
-    defaultSopsFile = ../../secrets/secrets.yaml;
+    defaultSopsFile = ../../../secrets/secrets.yaml;
 
     secrets = {
       # Kubeconfig - decrypts to ~/.kube/config

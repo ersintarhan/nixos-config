@@ -1,35 +1,20 @@
 # Home Manager Configuration for Ersin
-{ config, pkgs, ... }:
+{ config, pkgs, lib, hostname ? "bosgame", ... }:
 
 {
   imports = [
-    # Main modules
-    ./programs.nix
-    ./niri.nix
-    ./waybar.nix
-    ./mako.nix
-    ./secrets.nix
-    ./distrobox.nix
-    ./wallpaper.nix
-    ./catppuccin.nix
+    # Modular imports
+    ./core              # Shell, CLI tools, git, ssh
+    ./desktop           # Niri, waybar, mako, rofi, gtk/qt
+    ./terminals         # Kitty, foot, alacritty
+    ./editors           # Micro, zed
+    ./browsers          # Firefox
+    ./theme             # Catppuccin
+    ./containers        # Distrobox
+    ./secrets           # SOPS
 
-    # Modularized program configurations
-    ./programs/fish.nix
-    ./programs/kitty.nix
-    ./programs/foot.nix
-    ./programs/starship.nix
-    ./programs/ssh.nix
-    ./programs/git.nix
-    ./programs/zed.nix
-    ./programs/bash.nix
-    ./programs/alacritty.nix
-    ./programs/fuzzel.nix
-    ./programs/k9s.nix
-    ./programs/vivid.nix
-    ./programs/firefox.nix
-    ./programs/micro.nix
-    ./programs/eza.nix
-    ./programs/rofi.nix
+    # Host-specific configuration
+    ./hosts/${hostname}.nix
   ];
 
   home.username = "ersin";
@@ -38,38 +23,6 @@
   # Let Home Manager manage itself
   programs.home-manager.enable = true;
 
-  # User packages (GUI apps etc.)
-  home.packages = with pkgs; [
-    # Add user-specific packages here
-  ];
-
-  # === GTK Theme (catppuccin manages icons) ===
-  gtk = {
-    enable = true;
-    theme = {
-      name = "Adwaita-dark";
-      package = pkgs.gnome-themes-extra;
-    };
-    cursorTheme = {
-      name = "Adwaita";
-      package = pkgs.adwaita-icon-theme;
-      size = 24;
-    };
-    gtk3.extraConfig = {
-      gtk-application-prefer-dark-theme = true;
-    };
-    gtk4.extraConfig = {
-      gtk-application-prefer-dark-theme = true;
-    };
-  };
-
-  # === Qt Theme ===
-  qt = {
-    enable = true;
-    platformTheme.name = "kvantum";
-    style.name = "kvantum";
-  };
-
   # === Dark mode for apps ===
   dconf.settings = {
     "org/gnome/desktop/interface" = {
@@ -77,14 +30,13 @@
     };
   };
 
-  # XDG directories
+  # === XDG Configuration ===
   xdg.enable = true;
 
-  # Default applications (Edge as default browser)
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
-      # Browser
+      # Browser (Microsoft Edge)
       "text/html" = "microsoft-edge.desktop";
       "x-scheme-handler/http" = "microsoft-edge.desktop";
       "x-scheme-handler/https" = "microsoft-edge.desktop";
@@ -96,10 +48,11 @@
       "application/x-extension-shtml" = "microsoft-edge.desktop";
       "application/x-extension-xhtml" = "microsoft-edge.desktop";
       "application/x-extension-xht" = "microsoft-edge.desktop";
-      # File manager
+      # File manager (Nemo)
       "inode/directory" = "nemo.desktop";
     };
   };
+
   xdg.userDirs = {
     enable = true;
     createDirectories = true;
@@ -111,7 +64,7 @@
     videos = "${config.home.homeDirectory}/Videos";
   };
 
-  # === Nemo Actions ===
+  # === Nemo File Manager Actions ===
   home.file.".local/share/nemo/actions/copy-full-path.nemo_action".text = ''
     [Nemo Action]
     Name=Copy Full Path

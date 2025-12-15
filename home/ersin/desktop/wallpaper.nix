@@ -25,7 +25,7 @@
 
   # Use the external Python script as the wallpaper command
   home.file.".local/bin/random-wallpaper" = {
-    source = ./programs/scripts/random-wallpaper.py;
+    source = ./scripts/random-wallpaper.py;
     executable = true;
   };
 

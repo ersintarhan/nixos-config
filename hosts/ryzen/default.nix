@@ -7,7 +7,7 @@
     ../../modules/desktop
     ../../modules/services/audio.nix
     ../../modules/services/bluetooth.nix
-    ../../modules/hardware/graphics.nix
+    ../../modules/hardware/graphics-basic.nix  # No ROCm (integrated GPU)
   ];
 
   # === BOOT ===
