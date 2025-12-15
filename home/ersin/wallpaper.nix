@@ -1,9 +1,10 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   home.packages = with pkgs; [
     swww
     curl
+    jq # Needed for JSON parsing from Wallhaven API
   ];
 
   # Make swww-daemon a systemd service for reliability
@@ -22,19 +23,51 @@
     };
   };
 
-  # Updated wallpaper script
+  # Updated wallpaper script for Wallhaven API
   home.file.".local/bin/random-wallpaper".text = ''
     #!/bin/sh
     # Set a cache directory
     WALLPAPER_DIR="$HOME/.cache/wallpapers"
     mkdir -p "$WALLPAPER_DIR"
 
-    # Fetch a new random wallpaper from Picsum Photos (2560x1440)
-    # Using curl with User-Agent and following redirects
-    WALLPAPER_PATH="$WALLPAPER_DIR/wallpaper-$(date +%s).jpg"
+    # API Key file path is passed as the first argument from systemd
+    API_KEY_FILE="$1"
+    if [ -z "$API_KEY_FILE" ]; then
+      echo "Error: Wallhaven API key file path not provided to script." >&2
+      exit 1
+    fi
+    API_KEY=$(cat "$API_KEY_FILE")
+    if [ -z "$API_KEY" ]; then
+      echo "Error: Wallhaven API key is empty." >&2
+      exit 1
+    fi
+
+    # Wallhaven API parameters
+    # Resolution: 2K (2560x1440)
+    # Categories: General (100)
+    # Purity: SFW (100)
+    # Sorting: Random
+    # Ratios: 16x9 (for standard monitors)
+    API_URL="https://wallhaven.cc/api/v1/search?apikey=${API_KEY}&q=nature&categories=100&purity=100&atleast=2560x1440&sorting=random&ratios=16x9"
     USER_AGENT="Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0"
-    if ! curl -L -A "$USER_AGENT" -o "$WALLPAPER_PATH" "https://picsum.photos/2560/1440"; then
-        echo "Failed to download wallpaper from Picsum Photos. Exiting."
+    
+    # Fetch wallpaper list from Wallhaven API
+    API_RESPONSE=$(curl -s -L -A "$USER_AGENT" "$API_URL")
+    
+    # Extract image URL using jq
+    # Fallback to an empty string if data[0].path is null or not found
+    IMAGE_URL=$(echo "$API_RESPONSE" | ${pkgs.jq}/bin/jq -r '.data[0].path // empty')
+
+    if [ -z "$IMAGE_URL" ] || [ "$IMAGE_URL" = "null" ]; then
+      echo "Failed to get a valid image URL from Wallhaven API." >&2
+      echo "API Response: $API_RESPONSE" >&2
+      exit 1
+    fi
+
+    # Download the actual wallpaper image
+    WALLPAPER_PATH="$WALLPAPER_DIR/wallpaper-$(date +%s).jpg"
+    if ! curl -L -A "$USER_AGENT" -o "$WALLPAPER_PATH" "$IMAGE_URL"; then
+        echo "Failed to download wallpaper from $IMAGE_URL. Exiting." >&2
         exit 1
     fi
 
@@ -58,11 +91,12 @@
   # systemd service and timer for the script
   systemd.user.services.random-wallpaper = {
     Unit = {
-      Description = "Set a random wallpaper from Picsum Photos";
+      Description = "Set a random wallpaper from Wallhaven";
     };
     Service = {
       Type = "oneshot";
-      ExecStart = "${pkgs.bash}/bin/bash %h/.local/bin/random-wallpaper";
+      # Pass the API key file path as an argument to the script
+      ExecStart = "${pkgs.bash}/bin/bash %h/.local/bin/random-wallpaper ${config.sops.secrets.wallhaven-api-key.path}";
     };
   };
 

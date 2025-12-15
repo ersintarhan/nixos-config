@@ -27,6 +27,12 @@
         path = "${config.home.homeDirectory}/.ssh/id_rsa";
         mode = "0600";
       };
+
+      # Wallhaven API Key
+      wallhaven-api-key = {
+        path = "${config.home.homeDirectory}/.config/wallhaven-api-key";
+        mode = "0000"; # Read-only, minimal permissions
+      };
     };
   };
 
