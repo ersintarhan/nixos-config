@@ -16,7 +16,7 @@
 
       # === Behavior ===
       autosave = "on_focus_change";
-      format_on_save = true;
+      format_on_save = "true";
       base_keymap = "VSCode";
 
       # === Telemetry ===
