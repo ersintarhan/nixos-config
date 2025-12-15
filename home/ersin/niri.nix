@@ -87,12 +87,14 @@
     window-rule {
         match app-id=r#"blueman-manager"#
         open-floating true
-        default-floating-size 530 500
+        default-column-width { fixed 530; }
+        default-window-height { fixed 500; }
     }
     window-rule {
         match app-id=r#"pavucontrol"#
         open-floating true
-        default-floating-size 520 700
+        default-column-width { fixed 520; }
+        default-window-height { fixed 700; }
     }
     window-rule {
         match app-id="xdg-desktop-portal-gtk"
@@ -144,6 +146,7 @@
         XDG_SESSION_TYPE "wayland"
         XDG_CURRENT_DESKTOP "niri"
         GTK_THEME "Adwaita:dark"
+        XDG_DATA_DIRS "/home/ersin/.local/share:/run/current-system/sw/share:/var/lib/flatpak/exports/share"
     }
 
     // ────────────── Keybindings ──────────────
@@ -154,8 +157,8 @@
         Mod+Return hotkey-overlay-title="Terminal: Foot" { spawn "foot"; }
         Mod+T hotkey-overlay-title="Terminal: Kitty" { spawn "kitty"; }
         Mod+Shift+T hotkey-overlay-title="Terminal: Alacritty" { spawn "alacritty"; }
-        Mod+Space hotkey-overlay-title="App Launcher" { spawn "anyrun"; }
-        Mod+D hotkey-overlay-title="App Launcher" { spawn "anyrun"; }
+        Mod+Space hotkey-overlay-title="App Launcher" { spawn "rofi" "-show" "drun"; }
+        Mod+D hotkey-overlay-title="App Launcher" { spawn "rofi" "-show" "drun"; }
         Mod+B hotkey-overlay-title="Browser: Microsoft Edge" { spawn "microsoft-edge"; }
         Mod+E hotkey-overlay-title="File Manager: Nemo" { spawn "nemo"; }
         Mod+Y hotkey-overlay-title="File Manager: Yazi" { spawn "kitty" "-e" "yazi"; }
