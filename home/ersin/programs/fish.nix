@@ -28,6 +28,9 @@
       gh = ''
         nix shell nixpkgs#gh --command gh $argv
       '';
+      hcloud = ''
+        nix shell nixpkgs#hcloud --command hcloud $argv
+      '';
     };
 
     shellAbbrs = {
