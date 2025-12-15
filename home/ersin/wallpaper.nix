@@ -31,10 +31,14 @@
     mkdir -p "$WALLPAPER_DIR"
 
     # API Key file path is passed as the first argument from systemd.
+    API_KEY_FILE="$1"
     # If no argument is provided (e.g., when run manually), default to a common path.
-    API_KEY_FILE="${1:-"$HOME/.config/wallhaven-api-key"}"
     if [ -z "$API_KEY_FILE" ]; then
-      echo "Error: Wallhaven API key file path not provided to script." >&2
+      API_KEY_FILE="$HOME/.config/wallhaven-api-key"
+    fi
+
+    if [ ! -f "$API_KEY_FILE" ]; then
+      echo "Error: API key file not found at $API_KEY_FILE" >&2
       exit 1
     fi
     API_KEY=$(cat "$API_KEY_FILE")
