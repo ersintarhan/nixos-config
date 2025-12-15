@@ -6,13 +6,14 @@ My personal NixOS + Home Manager configuration with Flakes, featuring a modular 
 
 - **Flakes** - Reproducible system configuration
 - **Home Manager** - Declarative user environment management
+- **Multi-host** - Same config, multiple machines (bosgame, ryzen)
 - **sops-nix** - Encrypted secrets (SSH keys, kubeconfig, etc.)
 - **Catppuccin/nix** - Unified Mocha theme with lavender accent across all apps
 - **Niri** - Scrollable tiling Wayland compositor
 - **Waybar + Mako** - Status bar and notifications
 - **Rofi** - App launcher with calculator and emoji plugins
 - **Fish shell** - Modern shell with starship prompt
-- **ROCm** - AMD GPU compute support
+- **ROCm** - AMD GPU compute support (bosgame only)
 - **Distrobox** - Arch Linux container for AUR packages
 - **Development tools** - Node.js, Rust, Python, .NET, kubectl, Helm
 
@@ -20,13 +21,16 @@ My personal NixOS + Home Manager configuration with Flakes, featuring a modular 
 
 ```
 nixos-config/
-├── flake.nix                 # Main flake
+├── flake.nix                 # Main flake (defines hosts)
 ├── flake.lock                # Dependency lock
 ├── .sops.yaml                # SOPS GPG key configuration
 │
-├── hosts/                    # Machine-specific configs
-│   └── bosgame/
-│       ├── default.nix       # Host configuration
+├── hosts/                    # Machine-specific NixOS configs
+│   ├── bosgame/
+│   │   ├── default.nix       # Host config (ROCm GPU)
+│   │   └── hardware.nix      # Hardware (generated)
+│   └── ryzen/
+│       ├── default.nix       # Host config (integrated GPU)
 │       └── hardware.nix      # Hardware (generated)
 │
 ├── modules/                  # Shared NixOS modules
@@ -34,44 +38,71 @@ nixos-config/
 │   │   ├── default.nix       # Niri, portals, fonts
 │   │   └── packages.nix      # System packages
 │   ├── hardware/
-│   │   └── graphics.nix      # AMD GPU (ROCm, Vulkan)
+│   │   ├── graphics.nix      # AMD GPU with ROCm
+│   │   └── graphics-basic.nix # AMD GPU without ROCm
 │   └── services/
 │       ├── audio.nix         # Pipewire
 │       └── bluetooth.nix     # Bluetooth + Blueman
 │
 ├── home/                     # Home Manager configs
 │   └── ersin/
-│       ├── default.nix       # Main home config, GTK/Qt themes
-│       ├── catppuccin.nix    # Catppuccin global settings
-│       ├── niri.nix          # Compositor config & keybindings
-│       ├── waybar.nix        # Status bar
-│       ├── mako.nix          # Notifications
-│       ├── distrobox.nix     # Arch container setup
-│       ├── wallpaper.nix     # Desktop wallpaper
-│       ├── secrets.nix       # SOPS secret definitions
-│       ├── programs.nix      # CLI tools & shell config
+│       ├── default.nix       # Main entry (imports modules by hostname)
 │       │
-│       └── programs/         # Modular program configs
-│           ├── fish.nix      # Fish shell + abbreviations
-│           ├── starship.nix  # Prompt
-│           ├── kitty.nix     # Kitty terminal
-│           ├── foot.nix      # Foot terminal
-│           ├── alacritty.nix # Alacritty terminal
-│           ├── rofi.nix      # App launcher
-│           ├── fuzzel.nix    # Fuzzel launcher (backup)
-│           ├── zed.nix       # Zed editor
-│           ├── micro.nix     # Micro editor
-│           ├── git.nix       # Git config
-│           ├── ssh.nix       # SSH config
-│           ├── k9s.nix       # Kubernetes TUI
-│           ├── firefox.nix   # Firefox + catppuccin
-│           ├── vivid.nix     # LS_COLORS
-│           ├── eza.nix       # Modern ls
-│           └── bash.nix      # Bash config
+│       ├── core/             # Shell & CLI tools
+│       │   ├── default.nix   # Imports + env vars, zoxide, bat, etc.
+│       │   ├── fish.nix      # Fish shell + abbreviations
+│       │   ├── bash.nix      # Bash config
+│       │   ├── starship.nix  # Prompt
+│       │   ├── git.nix       # Git config
+│       │   ├── ssh.nix       # SSH config
+│       │   ├── eza.nix       # Modern ls
+│       │   ├── vivid.nix     # LS_COLORS
+│       │   └── k9s.nix       # Kubernetes TUI
+│       │
+│       ├── desktop/          # Wayland desktop environment
+│       │   ├── default.nix   # Imports + GTK/Qt themes
+│       │   ├── niri.nix      # Compositor & keybindings
+│       │   ├── waybar.nix    # Status bar
+│       │   ├── mako.nix      # Notifications
+│       │   ├── rofi.nix      # App launcher
+│       │   ├── fuzzel.nix    # Fuzzel (backup launcher)
+│       │   └── wallpaper.nix # Random wallpaper service
+│       │
+│       ├── terminals/        # Terminal emulators
+│       │   ├── kitty.nix
+│       │   ├── foot.nix
+│       │   └── alacritty.nix
+│       │
+│       ├── editors/          # Text editors
+│       │   ├── micro.nix
+│       │   └── zed.nix
+│       │
+│       ├── browsers/         # Web browsers
+│       │   └── firefox.nix
+│       │
+│       ├── theme/            # Theming
+│       │   └── catppuccin.nix
+│       │
+│       ├── containers/       # Container tools
+│       │   └── distrobox.nix
+│       │
+│       ├── secrets/          # Secret management
+│       │   └── sops.nix
+│       │
+│       └── hosts/            # Host-specific home config
+│           ├── bosgame.nix   # ROCm tools
+│           └── ryzen.nix     # Lightweight
 │
 └── secrets/                  # Encrypted secrets (safe to commit)
     └── secrets.yaml          # SSH keys, kubeconfig (GPG encrypted)
 ```
+
+## Hosts
+
+| Host | Description | GPU | Graphics Module |
+|------|-------------|-----|-----------------|
+| `bosgame` | Main workstation | AMD Radeon (discrete) | `graphics.nix` (ROCm) |
+| `ryzen` | Mini PC | AMD Radeon 680M (integrated) | `graphics-basic.nix` |
 
 ## Quick Start
 
@@ -87,18 +118,21 @@ nixos-config/
 git clone https://github.com/ersinergin/nixos-config.git ~/nixos-config
 cd ~/nixos-config
 
+# Generate hardware config for your machine
+nixos-generate-config --show-hardware-config > hosts/HOSTNAME/hardware.nix
+
 # Import your GPG key
 gpg --import /path/to/your-key.asc
 gpg --edit-key YOUR_KEY_ID  # trust -> 5 -> quit
 
 # Apply configuration
-sudo nixos-rebuild switch --flake .#bosgame
+sudo nixos-rebuild switch --flake .#HOSTNAME
 ```
 
 ### Daily Usage
 
 ```bash
-# Update system (fish abbreviation)
+# Update system (fish abbreviation - auto-detects hostname)
 update
 
 # Clean old generations
@@ -147,7 +181,7 @@ nixos-generate-config --show-hardware-config > hosts/newhost/hardware.nix
     ../../modules/desktop
     ../../modules/services/audio.nix
     ../../modules/services/bluetooth.nix
-    ../../modules/hardware/graphics.nix
+    ../../modules/hardware/graphics-basic.nix  # or graphics.nix for ROCm
   ];
 
   networking.hostName = "newhost";
@@ -155,33 +189,44 @@ nixos-generate-config --show-hardware-config > hosts/newhost/hardware.nix
 }
 ```
 
-4. Add to `flake.nix`:
+4. Create `home/ersin/hosts/newhost.nix`:
 ```nix
-nixosConfigurations = {
-  newhost = nixpkgs.lib.nixosSystem {
-    system = "x86_64-linux";
-    specialArgs = { inherit inputs; };
-    modules = [
-      ./hosts/newhost
-      sops-nix.nixosModules.sops
-      catppuccin.nixosModules.catppuccin
-      home-manager.nixosModules.home-manager
-      {
-        home-manager.useGlobalPkgs = true;
-        home-manager.useUserPackages = true;
-        home-manager.users.ersin = import ./home/ersin;
-        home-manager.sharedModules = [
-          sops-nix.homeManagerModules.sops
-          catppuccin.homeModules.catppuccin
-        ];
-        home-manager.extraSpecialArgs = { inherit inputs; };
-      }
-    ];
-  };
+# Host-specific home configuration
+{ config, pkgs, lib, ... }:
+
+{
+  # Add host-specific packages or settings
+  home.packages = with pkgs; [
+    # ...
+  ];
+}
+```
+
+5. Add to `flake.nix`:
+```nix
+newhost = nixpkgs.lib.nixosSystem {
+  system = "x86_64-linux";
+  specialArgs = { inherit inputs; };
+  modules = [
+    ./hosts/newhost
+    sops-nix.nixosModules.sops
+    catppuccin.nixosModules.catppuccin
+    home-manager.nixosModules.home-manager
+    {
+      home-manager.useGlobalPkgs = true;
+      home-manager.useUserPackages = true;
+      home-manager.users.ersin = import ./home/ersin;
+      home-manager.sharedModules = [
+        sops-nix.homeManagerModules.sops
+        catppuccin.homeModules.catppuccin
+      ];
+      home-manager.extraSpecialArgs = { inherit inputs; hostname = "newhost"; };
+    }
+  ];
 };
 ```
 
-5. Apply on the new machine:
+6. Apply on the new machine:
 ```bash
 sudo nixos-rebuild switch --flake ~/nixos-config#newhost
 ```
@@ -235,7 +280,7 @@ sudo nix-env --list-generations --profile /nix/var/nix/profiles/system
 # Garbage collect
 sudo nix-collect-garbage -d
 
-# Check GPU
+# Check GPU (bosgame only)
 rocm-smi
 nvtop
 
@@ -251,7 +296,7 @@ distrobox enter arch
 This config uses [catppuccin/nix](https://github.com/catppuccin/nix) for unified theming:
 
 ```nix
-# home/ersin/catppuccin.nix
+# home/ersin/theme/catppuccin.nix
 catppuccin = {
   enable = true;
   flavor = "mocha";
