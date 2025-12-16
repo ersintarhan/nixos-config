@@ -50,6 +50,10 @@
       "application/x-extension-xht" = "brave-browser.desktop";
       # File manager (Nemo)
       "inode/directory" = "nemo.desktop";
+      # .NET files (Rider)
+      "application/x-dotnet-sln" = "rider.desktop";
+      "application/x-dotnet-csproj" = "rider.desktop";
+      "application/x-dotnet-fsproj" = "rider.desktop";
     };
   };
 
@@ -115,6 +119,44 @@
     Extensions=dir;
   '';
 
+  # === JetBrains Rider (stable desktop file) ===
+  home.file.".local/share/applications/rider.desktop".text = ''
+    [Desktop Entry]
+    Name=Rider
+    Exec=${config.home.homeDirectory}/.local/share/JetBrains/Toolbox/apps/rider/bin/rider %f
+    Version=1.0
+    Type=Application
+    Categories=Development;IDE;
+    Terminal=false
+    Icon=rider
+    Comment=JetBrains Rider - .NET IDE
+    StartupWMClass=jetbrains-rider
+    StartupNotify=true
+    MimeType=application/x-dotnet-sln;application/x-dotnet-csproj;
+  '';
+
+  # === Custom MIME types for .NET files ===
+  home.file.".local/share/mime/packages/dotnet.xml".text = ''
+    <?xml version="1.0" encoding="UTF-8"?>
+    <mime-info xmlns="http://www.freedesktop.org/standards/shared-mime-info">
+      <mime-type type="application/x-dotnet-sln">
+        <comment>Visual Studio Solution</comment>
+        <glob pattern="*.sln"/>
+        <icon name="rider"/>
+      </mime-type>
+      <mime-type type="application/x-dotnet-csproj">
+        <comment>C# Project File</comment>
+        <glob pattern="*.csproj"/>
+        <icon name="rider"/>
+      </mime-type>
+      <mime-type type="application/x-dotnet-fsproj">
+        <comment>F# Project File</comment>
+        <glob pattern="*.fsproj"/>
+        <icon name="rider"/>
+      </mime-type>
+    </mime-info>
+  '';
+
   # Disable tray applets (using waybar modules instead)
   home.file.".config/autostart/blueman.desktop".text = ''
     [Desktop Entry]
@@ -124,6 +166,11 @@
   home.file.".config/autostart/nm-applet.desktop".text = ''
     [Desktop Entry]
     Hidden=true
+  '';
+
+  # === Update MIME database on activation ===
+  home.activation.updateMimeDatabase = lib.hm.dag.entryAfter ["writeBoundary"] ''
+    ${pkgs.shared-mime-info}/bin/update-mime-database ~/.local/share/mime
   '';
 
   home.stateVersion = "25.11";
