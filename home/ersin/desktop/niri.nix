@@ -159,7 +159,8 @@
         Mod+Shift+T hotkey-overlay-title="Terminal: Alacritty" { spawn "alacritty"; }
         Mod+Space hotkey-overlay-title="App Launcher" { spawn "rofi" "-show" "drun"; }
         Mod+D hotkey-overlay-title="App Launcher" { spawn "rofi" "-show" "drun"; }
-        Mod+B hotkey-overlay-title="Browser: Microsoft Edge" { spawn "microsoft-edge"; }
+        Mod+B hotkey-overlay-title="Browser: Brave" { spawn "brave"; }
+        Mod+Shift+B hotkey-overlay-title="Browser: Microsoft Edge" { spawn "microsoft-edge"; }
         Mod+E hotkey-overlay-title="File Manager: Nemo" { spawn "nemo"; }
         Mod+Y hotkey-overlay-title="File Manager: Yazi" { spawn "kitty" "-e" "yazi"; }
         Super+Alt+L hotkey-overlay-title="Lock Screen" { spawn "swaylock"; }
@@ -278,8 +279,8 @@
 
         // ─── System ───
         Mod+Shift+W hotkey-overlay-title="Next Wallpaper" { spawn "random-wallpaper"; }
-        Mod+O repeat=false { toggle-overview; }
-        Mod+Escape allow-inhibiting=false { toggle-keyboard-shortcuts-inhibit; }
+        Mod+O repeat=false hotkey-overlay-title="Toggle Overview" { toggle-overview; }
+        Mod+Escape hotkey-overlay-title="Reload config" { spawn "niri" "msg" "action" "load-config-file"; }
         Mod+Shift+E { quit; }
         Ctrl+Alt+Delete { quit; }
         Mod+Shift+P { power-off-monitors; }
@@ -301,9 +302,9 @@
         Alt+MouseMiddle  { maximize-column; }
 
         // Super + Mouse: Workspace navigation
-        Mod+MouseBack    { focus-workspace-up; }
-        Mod+MouseForward { focus-workspace-down; }
-        Mod+MouseMiddle  { toggle-window-floating; }
+        Mod+MouseBack    { focus-monitor-left; }
+        Mod+MouseForward { focus-monitor-right; }
+        Mod+MouseMiddle  { maximize-window-to-edges; }
     }
   '';
 }
