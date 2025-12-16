@@ -285,9 +285,25 @@
         Mod+Shift+P { power-off-monitors; }
 
         // ─── Mouse Bindings ───
+        // Default: column navigation
         MouseBack    { focus-column-left; }
         MouseForward { focus-column-right; }
         MouseMiddle  { toggle-overview; }
+
+        // Ctrl + Mouse: Monitor focus
+        Ctrl+MouseBack    { focus-monitor-left; }
+        Ctrl+MouseForward { focus-monitor-right; }
+        Ctrl+MouseMiddle  { focus-monitor-next; }
+
+        // Alt + Mouse: Move window to monitor
+        Alt+MouseBack    { move-column-to-monitor-left; }
+        Alt+MouseForward { move-column-to-monitor-right; }
+        Alt+MouseMiddle  { maximize-column; }
+
+        // Super + Mouse: Workspace navigation
+        Mod+MouseBack    { focus-workspace-up; }
+        Mod+MouseForward { focus-workspace-down; }
+        Mod+MouseMiddle  { toggle-window-floating; }
     }
   '';
 }

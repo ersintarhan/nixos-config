@@ -2,6 +2,15 @@
 { config, pkgs, lib, ... }:
 
 {
+  # === Cursor Theme (system-wide for Wayland) ===
+  home.pointerCursor = {
+    name = "Bibata-Modern-Classic";
+    package = pkgs.bibata-cursors;
+    size = 24;
+    gtk.enable = true;
+    x11.enable = true;
+  };
+
   imports = [
     ./niri.nix
     ./waybar.nix
@@ -18,8 +27,8 @@
       package = pkgs.gnome-themes-extra;
     };
     cursorTheme = {
-      name = "Adwaita";
-      package = pkgs.adwaita-icon-theme;
+      name = "Bibata-Modern-Classic";
+      package = pkgs.bibata-cursors;
       size = 24;
     };
     gtk3.extraConfig = {

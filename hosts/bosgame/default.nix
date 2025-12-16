@@ -7,6 +7,7 @@
     ../../modules/desktop
     ../../modules/services/audio.nix
     ../../modules/services/bluetooth.nix
+    ../../modules/services/dns.nix  # Split DNS (Consul + Cloudflare)
     ../../modules/hardware/graphics.nix
   ];
 
@@ -16,25 +17,19 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelModules = [ "i2c-dev" ]; # For ddcutil (external monitor brightness)
 
+  # === ZRAM (compressed RAM swap) ===
+  zramSwap = {
+    enable = true;
+    memoryPercent = 50;  # 32GB zram
+  };
+
   # === DDC/CI (external monitor control) ===
   hardware.i2c.enable = true;
 
   # === NETWORK ===
   networking.hostName = "bosgame";
   networking.networkmanager.enable = true;
-
-  # === DNS (Consul) ===
-  networking.nameservers = [
-    "10.101.1.11"
-    "10.101.1.12"
-    "10.101.1.13"
-  ];
-  networking.search = [
-    "consul"
-    "node.consul"
-    "service.consul"
-  ];
-  networking.networkmanager.dns = "none"; # NM DNS'i yönetmesin
+  # DNS is managed by ../../modules/services/dns.nix (split DNS: Consul + Cloudflare)
 
   # === LOCALE & TIME ===
   time.timeZone = "Europe/Istanbul";

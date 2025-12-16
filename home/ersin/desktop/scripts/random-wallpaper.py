@@ -10,9 +10,7 @@ from glob import glob
 from urllib import request
 
 # --- Configuration ---
-KEYWORDS = [
-    "dark",
-]
+KEYWORDS = ["landscape", "animals", "quotes", "city", "nature"]
 WALLPAPER_DIR = os.path.expanduser("~/.cache/wallpapers")
 USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/115.0"
 RESOLUTION = "2560x1440"  # Set your desired resolution here
