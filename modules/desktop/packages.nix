@@ -151,6 +151,7 @@
     gittyup # Git GUI
     lazygit # Terminal Git UI
     youtube-music # Music streaming
+    nomachine-client # Remote desktop client (NX)
 
     # === Containers ===
     distrobox # Run any Linux distro in containers
