@@ -15,7 +15,10 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelModules = [ "i2c-dev" ]; # For ddcutil (external monitor brightness)
+  boot.kernelModules = [ "i2c-dev" "amdgpu" ]; # For ddcutil + ROCm
+  boot.kernelParams = [
+    "amd_iommu=off"  # ROCm memory access için
+  ];
 
   # === ZRAM (compressed RAM swap) ===
   zramSwap = {
@@ -55,6 +58,7 @@
       "networkmanager"
       "wheel"
       "video"
+      "render" # For ROCm GPU compute
       "audio"
       "i2c" # For ddcutil (monitor brightness)
     ];
