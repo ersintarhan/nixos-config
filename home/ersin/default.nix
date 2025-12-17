@@ -1,17 +1,23 @@
 # Home Manager Configuration for Ersin
-{ config, pkgs, lib, hostname ? "bosgame", ... }:
+{
+  config,
+  pkgs,
+  lib,
+  hostname ? "bosgame",
+  ...
+}:
 
 {
   imports = [
     # Modular imports
-    ./core              # Shell, CLI tools, git, ssh
-    ./desktop           # Niri, waybar, mako, rofi, gtk/qt
-    ./terminals         # Kitty, foot, alacritty
-    ./editors           # Micro, zed
-    ./browsers          # Firefox
-    ./theme             # Catppuccin
-    ./containers        # Distrobox
-    ./secrets           # SOPS
+    ./core # Shell, CLI tools, git, ssh
+    ./desktop # Niri, waybar, mako, rofi, gtk/qt
+    ./terminals # Kitty, foot, alacritty
+    ./editors # Micro, zed
+    ./browsers # Firefox
+    ./theme # Catppuccin
+    ./containers # Distrobox
+    ./secrets # SOPS
 
     # Host-specific configuration
     ./hosts/${hostname}.nix
@@ -109,11 +115,11 @@
     Extensions=any;
   '';
 
-  home.file.".local/share/nemo/actions/open-in-kitty.nemo_action".text = ''
+  home.file.".local/share/nemo/actions/open-in-foot.nemo_action".text = ''
     [Nemo Action]
     Name=Open Terminal Here
-    Comment=Open Kitty terminal in this directory
-    Exec=kitty --working-directory="%P"
+    Comment=Open Foot terminal in this directory
+    Exec=foot --working-directory="%P"
     Icon-Name=utilities-terminal
     Selection=any
     Extensions=dir;
@@ -169,7 +175,7 @@
   '';
 
   # === Update MIME database on activation ===
-  home.activation.updateMimeDatabase = lib.hm.dag.entryAfter ["writeBoundary"] ''
+  home.activation.updateMimeDatabase = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     ${pkgs.shared-mime-info}/bin/update-mime-database ~/.local/share/mime
   '';
 
