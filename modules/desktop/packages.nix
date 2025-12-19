@@ -151,6 +151,7 @@
     gittyup # Git GUI
     lazygit # Terminal Git UI
     youtube-music # Music streaming
+    rustdesk # Remote desktop client (RDP, VNC, SSH)
 
     # === Containers ===
     distrobox # Run any Linux distro in containers

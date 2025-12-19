@@ -10,6 +10,7 @@
     spawn-at-startup "xwayland-satellite"
 
     // ────────────── Startup Applications ──────────────
+    spawn-at-startup "wl-paste" "--watch" "cliphist" "store"
     spawn-at-startup "waybar"
     spawn-at-startup "mako"
     spawn-at-startup "/run/current-system/sw/libexec/polkit-gnome-authentication-agent-1"
@@ -276,6 +277,9 @@
         Print { screenshot; }
         Ctrl+Print { screenshot-screen; }
         Alt+Print { screenshot-window; }
+
+        // ─── Clipboard History ───
+        Mod+Shift+C hotkey-overlay-title="Clipboard History" { spawn "sh" "-c" "cliphist list | rofi -dmenu | cliphist decode | wl-copy"; }
 
         // ─── System ───
         Mod+Shift+W hotkey-overlay-title="Next Wallpaper" { spawn "random-wallpaper"; }
