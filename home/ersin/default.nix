@@ -125,6 +125,21 @@
     Extensions=dir;
   '';
 
+  # === RustDesk X11 (Wayland keyboard grab fix) ===
+  home.file.".local/share/applications/rustdesk-x11.desktop".text = ''
+    [Desktop Entry]
+    Name=RustDesk (X11)
+    Exec=env -u WAYLAND_DISPLAY DISPLAY=:1 rustdesk
+    Version=1.0
+    Type=Application
+    Categories=Network;RemoteAccess;
+    Terminal=false
+    Icon=rustdesk
+    Comment=RustDesk Remote Desktop (X11 mode for Wayland compatibility)
+    StartupWMClass=rustdesk
+    StartupNotify=true
+  '';
+
   # === JetBrains Rider (stable desktop file) ===
   home.file.".local/share/applications/rider.desktop".text = ''
     [Desktop Entry]

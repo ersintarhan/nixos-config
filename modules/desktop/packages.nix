@@ -113,6 +113,7 @@
     sops # Secret management
     curl
     wget
+    jq
     unzip
     htop
     mission-center # System monitor (Task Manager style)
