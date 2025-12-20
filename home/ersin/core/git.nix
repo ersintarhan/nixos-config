@@ -12,6 +12,11 @@
       tag.gpgsign = true;
       init.defaultBranch = "main";
       pull.rebase = false;
+      # Credential helper for HuggingFace
+      credential = {
+        helper = "store";
+        "https://huggingface.co".helper = "store";
+      };
     };
   };
 }

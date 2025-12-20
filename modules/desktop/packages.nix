@@ -179,5 +179,6 @@
     gh
     github-copilot-cli
     gh-copilot # gh extension for copilot
+    python3Packages.huggingface-hub # huggingface-cli for model downloads
   ];
 }

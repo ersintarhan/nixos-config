@@ -26,6 +26,12 @@
   home.username = "ersin";
   home.homeDirectory = "/home/ersin";
 
+  # === Environment Variables ===
+  home.sessionVariables = {
+    # HuggingFace cache directory for model downloads
+    HF_HOME = "${config.home.homeDirectory}/models/huggingface";
+  };
+
   # Let Home Manager manage itself
   programs.home-manager.enable = true;
 
