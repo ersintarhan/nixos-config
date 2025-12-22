@@ -144,6 +144,9 @@
     xorg.libXrender
     xorg.libXtst
 
+    # === Email ===
+    thunderbird
+
     # === Apps ===
     telegram-desktop
     remmina # Remote desktop client (RDP, VNC, SSH)

@@ -15,6 +15,7 @@
     ./terminals # Kitty, foot, alacritty
     ./editors # Micro, zed
     ./browsers # Firefox
+    ./email # Thunderbird, GPG
     ./theme # Catppuccin
     ./containers # Distrobox
     ./secrets # SOPS
@@ -62,6 +63,10 @@
       "application/x-extension-xht" = "brave-browser.desktop";
       # File manager (Nemo)
       "inode/directory" = "nemo.desktop";
+      # Email (Thunderbird)
+      "x-scheme-handler/mailto" = "thunderbird.desktop";
+      "message/rfc822" = "thunderbird.desktop";
+      "application/x-extension-eml" = "thunderbird.desktop";
       # .NET files (Rider)
       "application/x-dotnet-sln" = "rider.desktop";
       "application/x-dotnet-csproj" = "rider.desktop";
