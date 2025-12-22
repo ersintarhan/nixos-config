@@ -180,5 +180,8 @@
     github-copilot-cli
     gh-copilot # gh extension for copilot
     python3Packages.huggingface-hub # huggingface-cli for model downloads
+
+    # llama.cpp with Vulkan backend (ROCm has memory fault issues on gfx1151)
+    llama-cpp-vulkan
   ];
 }
