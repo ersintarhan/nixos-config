@@ -1,5 +1,5 @@
 # Desktop Environment Module (Niri + Wayland)
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports = [
@@ -29,7 +29,7 @@
       common.default = "*";
       # Niri uses wlr portal for screen sharing
       niri = {
-        default = [ "wlr" "gtk" ];
+        default = lib.mkForce [ "wlr" "gtk" ];
         "org.freedesktop.impl.portal.ScreenCast" = "wlr";
         "org.freedesktop.impl.portal.Screenshot" = "wlr";
       };
