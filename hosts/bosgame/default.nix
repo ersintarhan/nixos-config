@@ -5,6 +5,7 @@
   imports = [
     ./hardware.nix
     ../../modules/desktop
+    ../../modules/development/dotnet.nix  # .NET SDK + global tools
     ../../modules/services/audio.nix
     ../../modules/services/bluetooth.nix
     ../../modules/services/dns.nix  # Split DNS (Consul + Cloudflare)
