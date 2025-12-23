@@ -2,15 +2,20 @@
 # Enables .NET SDK and global tools support on NixOS
 { config, pkgs, lib, ... }:
 
-{
-  # .NET SDK
-  environment.systemPackages = with pkgs; [
-    dotnetCorePackages.sdk_10_0
+let
+  dotnetCombined = with pkgs.dotnetCorePackages; combinePackages [
+    sdk_10_0
+    sdk_9_0  # Many tools still target net9.0
+    sdk_8_0  # LTS - some tools still use net8.0
   ];
+in
+{
+  # .NET SDKs - combined for tool compatibility
+  environment.systemPackages = [ dotnetCombined ];
 
   # Environment variables for .NET
   environment.sessionVariables = {
-    DOTNET_ROOT = "${pkgs.dotnetCorePackages.sdk_10_0}";
+    DOTNET_ROOT = "${dotnetCombined}";
     DOTNET_CLI_TELEMETRY_OPTOUT = "1";
   };
 
