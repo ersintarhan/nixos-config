@@ -15,7 +15,7 @@ in
 
   # Environment variables for .NET
   environment.sessionVariables = {
-    DOTNET_ROOT = "${dotnetCombined}";
+    DOTNET_ROOT = "${dotnetCombined}/share/dotnet";  # Must point to share/dotnet!
     DOTNET_CLI_TELEMETRY_OPTOUT = "1";
   };
 
