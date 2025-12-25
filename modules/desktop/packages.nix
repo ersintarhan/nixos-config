@@ -164,17 +164,8 @@
     boxbuddy # GUI for distrobox (GTK4)
     podman-compose # docker-compose for podman
 
-    # === HashiCorp ===
-    nomad
-    consul
-    vault # lazım olur
-
-    # === Kubernetes ===
-    kubectl
-    freelens-bin # Kubernetes IDE
-
     # === AI Tools ===
-    #amazon-q-cli
+    #
     gh
     github-copilot-cli
     gh-copilot # gh extension for copilot

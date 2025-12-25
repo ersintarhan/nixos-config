@@ -7,12 +7,6 @@
 
     # On-demand PostgreSQL tools
     functions = {
-      hcloud = ''
-        nix shell nixpkgs#hcloud --command hcloud $argv
-      '';
-      q = ''
-        nix shell nixpkgs#amazon-q-cli --command amazon-q $argv
-      '';
       gau = ''
         nix shell nixpkgs#gau --command gau $argv
       '';

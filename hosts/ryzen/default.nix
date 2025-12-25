@@ -9,6 +9,7 @@
     ../../modules/development/python.nix # Python + uv
     ../../modules/development/ai-tools.nix # Codex CLI + ACP
     ../../modules/development/database.nix # Database tools
+    ../../modules/development/cloud.nix # Cloud tools
     ../../modules/services/audio.nix
     ../../modules/services/bluetooth.nix
     ../../modules/services/dns.nix # Split DNS (Consul + Cloudflare)

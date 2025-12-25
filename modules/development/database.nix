@@ -12,6 +12,7 @@
     pgcli # PostgreSQL CLI
     redis # Redis server
     sqlcmd # SQL Server CLI
+    pgmodeler # PostgreSQL GUI & Modelling tool
 
   ];
 }
