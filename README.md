@@ -38,7 +38,12 @@ My personal NixOS + Home Manager configuration with Flakes, featuring a modular 
 
 - **ROCm** - AMD GPU compute support (bosgame only)
 - **DDC/CI** - External monitor brightness control
-- **Split DNS** - Consul + Cloudflare (Consul + Cloudflare)
+- **Split DNS** - Consul + Cloudflare
+
+### Containers
+
+- **Distrobox** - Run any Linux distro in containers (manually managed)
+- **Podman** - Docker-compatible container runtime
 
 ## Structure
 
@@ -117,7 +122,7 @@ nixos-config/
 │       ├── theme/            # Theming
 │       │   └── catppuccin.nix
 │       │
-│       ├── containers/       # Container tools
+│       ├── containers/       # Container tools (Distrobox config)
 │       │   └── distrobox.nix
 │       │
 │       ├── secrets/          # Secret management
@@ -317,13 +322,33 @@ random-wallpaper
 
 ### Container Runtime
 
-```bash
-# Podman (Docker-compatible)
-podman run hello-world
+**Podman** (Docker-compatible):
 
-# Distrobox (Arch Linux container)
-distrobox enter arch
+```bash
+podman run hello-world
+podman ps
+podman images
 ```
+
+**Distrobox** (Run any Linux distro):
+
+```bash
+# Create a container
+distrobox create -i debian:trixie -n debian
+distrobox create -i archlinux:latest -n arch
+
+# Enter a container
+distrobox enter debian
+distrobox enter arch
+
+# List containers
+distrobox list
+
+# Remove a container
+distrobox rm debian
+```
+
+Containers are manually managed for better flexibility. No predefined containers in Home Manager.
 
 ### GPU Monitoring (bosgame)
 
@@ -559,12 +584,14 @@ nvtop
 # System info
 fastfetch
 
-# Distrobox (Arch)
-distrobox enter arch
-
 # Container management
 podman ps
 podman images
+
+# Distrobox
+distrobox list
+distrobox create -i debian:trixie -n debian
+distrobox enter debian
 
 # Wallpaper
 random-wallpaper
@@ -678,6 +705,89 @@ newhost = nixpkgs.lib.nixosSystem {
 ```bash
 sudo nixos-rebuild switch --flake ~/nixos-config#newhost
 ```
+
+## Container Management
+
+Distrobox containers are manually managed for better flexibility and faster iteration.
+
+### Quick Start
+
+```bash
+# Create containers
+distrobox create -i debian:trixie -n debian
+distrobox create -i archlinux:latest -n arch
+
+# Enter containers
+distrobox enter debian
+distrobox enter arch
+
+# List all containers
+distrobox list
+```
+
+### Common Operations
+
+```bash
+# Remove a container
+distrobox rm debian
+
+# Stop all containers
+distrobox stop --all
+
+# Export/Import container
+distrobox export debian > debian-backup.tar.gz
+distrobox import debian-backup.tar.gz --name debian-new
+
+# Run command in container
+distrobox enter arch -- fish
+distrobox enter debian -- apt update
+
+# GUI support (X11/Wayland)
+distrobox create -i ubuntu:22.04 --nvidia --home
+```
+
+### Debian Container (for testing)
+
+```bash
+distrobox create -i debian:trixie -n debian
+distrobox enter debian
+
+# Install tools
+apt update && apt install -y git curl wget build-essential micro lnav
+
+# Use as isolated development environment
+```
+
+### Arch Container (for AUR)
+
+```bash
+distrobox create -i archlinux:latest -n arch
+distrobox enter arch
+
+# Install base tools
+pacman -S base-devel git fish
+
+# Install AUR helper (paru)
+git clone https://aur.archlinux.org/paru-bin.git
+cd paru-bin && makepkg -si
+
+# Use paru to install AUR packages
+paru -s package-name
+```
+
+### Benefits of Manual Management
+
+- ✅ Faster iterations (no Home Manager rebuild required)
+- ✅ Easy customization for each container
+- ✅ Independent updates
+- ✅ Test different distros quickly
+- ✅ Export/import containers as backups
+
+### GUI Tools
+
+- **distrobox-tui**: Terminal UI for container management
+- **distroshelf**: GUI for distrobox
+- **boxbuddy**: Modern GTK4 GUI for distrobox
 
 ## Acknowledgments
 
