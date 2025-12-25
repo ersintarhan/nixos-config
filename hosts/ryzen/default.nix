@@ -5,8 +5,9 @@
   imports = [
     ./hardware.nix
     ../../modules/desktop
-    ../../modules/development/dotnet.nix   # .NET SDK + global tools
-    ../../modules/development/python.nix   # Python + uv
+    ../../modules/development/dotnet.nix    # .NET SDK + global tools
+    ../../modules/development/python.nix    # Python + uv
+    ../../modules/development/ai-tools.nix  # Codex CLI + ACP
     ../../modules/services/audio.nix
     ../../modules/services/bluetooth.nix
     ../../modules/services/dns.nix  # Split DNS (Consul + Cloudflare)
