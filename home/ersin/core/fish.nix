@@ -44,6 +44,12 @@
       gs = "git status";
       gp = "git push";
     };
+
+    # Shell aliases (expanded immediately, not abbreviated)
+    shellAliases = {
+      # Claude Code with Z.AI GLM backend (reads API key from sops secret)
+      claude-zai = ''ANTHROPIC_BASE_URL="https://api.z.ai/api/anthropic" ANTHROPIC_AUTH_TOKEN="$(cat ~/.config/zai-api-key)" claude'';
+    };
     interactiveShellInit = ''
       # Add .NET Core SDK tools to PATH
       set -q fish_user_paths; and fish_add_path ~/.dotnet/tools

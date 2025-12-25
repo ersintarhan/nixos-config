@@ -33,6 +33,12 @@
         path = "${config.home.homeDirectory}/.config/wallhaven-api-key";
         mode = "0400"; # Read-only for owner
       };
+
+      # Z.AI API Key (for Claude Code + Codex)
+      zai_api_key = {
+        path = "${config.home.homeDirectory}/.config/zai-api-key";
+        mode = "0400";
+      };
     };
   };
 
