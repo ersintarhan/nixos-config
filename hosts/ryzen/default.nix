@@ -5,13 +5,14 @@
   imports = [
     ./hardware.nix
     ../../modules/desktop
-    ../../modules/development/dotnet.nix    # .NET SDK + global tools
-    ../../modules/development/python.nix    # Python + uv
-    ../../modules/development/ai-tools.nix  # Codex CLI + ACP
+    ../../modules/development/dotnet.nix # .NET SDK + global tools
+    ../../modules/development/python.nix # Python + uv
+    ../../modules/development/ai-tools.nix # Codex CLI + ACP
+    ../../modules/development/database.nix # Database tools
     ../../modules/services/audio.nix
     ../../modules/services/bluetooth.nix
-    ../../modules/services/dns.nix  # Split DNS (Consul + Cloudflare)
-    ../../modules/hardware/graphics-basic.nix  # No ROCm (integrated GPU)
+    ../../modules/services/dns.nix # Split DNS (Consul + Cloudflare)
+    ../../modules/hardware/graphics-basic.nix # No ROCm (integrated GPU)
   ];
 
   # === BOOT ===
@@ -23,7 +24,7 @@
   # === ZRAM (compressed RAM swap) ===
   zramSwap = {
     enable = true;
-    memoryPercent = 50;  # 32GB zram
+    memoryPercent = 50; # 32GB zram
   };
 
   # === DDC/CI (external monitor control) ===

@@ -5,12 +5,13 @@
   imports = [
     ./hardware.nix
     ../../modules/desktop
-    ../../modules/development/dotnet.nix    # .NET SDK + global tools
-    ../../modules/development/python.nix    # Python + uv
-    ../../modules/development/ai-tools.nix  # Codex CLI + ACP
+    ../../modules/development/dotnet.nix # .NET SDK + global tools
+    ../../modules/development/python.nix # Python + uv
+    ../../modules/development/ai-tools.nix # Codex CLI + ACP
+    ../../modules/development/database.nix # Database tools
     ../../modules/services/audio.nix
     ../../modules/services/bluetooth.nix
-    ../../modules/services/dns.nix  # Split DNS (Consul + Cloudflare)
+    ../../modules/services/dns.nix # Split DNS (Consul + Cloudflare)
     ../../modules/hardware/graphics.nix
   ];
 
@@ -18,15 +19,18 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.kernelModules = [ "i2c-dev" "amdgpu" ]; # For ddcutil + ROCm
+  boot.kernelModules = [
+    "i2c-dev"
+    "amdgpu"
+  ]; # For ddcutil + ROCm
   boot.kernelParams = [
-    "amd_iommu=off"  # ROCm memory access için
+    "amd_iommu=off" # ROCm memory access için
   ];
 
   # === ZRAM (compressed RAM swap) ===
   zramSwap = {
     enable = true;
-    memoryPercent = 50;  # 32GB zram
+    memoryPercent = 50; # 32GB zram
   };
 
   # === DDC/CI (external monitor control) ===

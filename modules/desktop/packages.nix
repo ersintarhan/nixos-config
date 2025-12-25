@@ -164,10 +164,6 @@
     boxbuddy # GUI for distrobox (GTK4)
     podman-compose # docker-compose for podman
 
-    # === Database Toools ===
-    pspg # PostgreSQL pager
-    redisinsight # Redis GUI
-
     # === HashiCorp ===
     nomad
     consul

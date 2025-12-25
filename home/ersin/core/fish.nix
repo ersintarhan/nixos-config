@@ -7,21 +7,6 @@
 
     # On-demand PostgreSQL tools
     functions = {
-      psql = ''
-        nix shell nixpkgs#postgresql_18 --command psql $argv
-      '';
-      pg_dump = ''
-        nix shell nixpkgs#postgresql_18 --command pg_dump $argv
-      '';
-      pg_restore = ''
-        nix shell nixpkgs#postgresql_18 --command pg_restore $argv
-      '';
-      redis-cli = ''
-        nix shell nixpkgs#redis --command redis-cli $argv
-      '';
-      sqlcmd = ''
-        nix shell nixpkgs#sqlcmd --command sqlcmd $argv
-      '';
       hcloud = ''
         nix shell nixpkgs#hcloud --command hcloud $argv
       '';
