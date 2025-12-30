@@ -19,6 +19,18 @@
         user = "git";
         identityFile = "~/.ssh/id_rsa";
       };
+      "ssh.dev.azure.com" = {
+        hostname = "ssh.dev.azure.com";
+        user = "git";
+        identityFile = "~/.ssh/azure_devops_rsa";
+        identitiesOnly = true;
+      };
+      "vs-ssh.visualstudio.com" = {
+        hostname = "vs-ssh.visualstudio.com";
+        user = "git";
+        identityFile = "~/.ssh/azure_devops_rsa";
+        identitiesOnly = true;
+      };
       "internal" = {
         host = "10.* 192.168.* *.consul *.zone";
         user = "root";

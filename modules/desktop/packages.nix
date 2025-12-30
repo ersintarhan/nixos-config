@@ -156,6 +156,7 @@
     lazygit # Terminal Git UI
     youtube-music # Music streaming
     rustdesk # Remote desktop client (RDP, VNC, SSH)
+    onlyoffice-desktopeditors # OnlyOffice document editor
 
     # === Containers ===
     distrobox # Run any Linux distro in containers
