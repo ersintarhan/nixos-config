@@ -158,6 +158,11 @@
     rustdesk # Remote desktop client (RDP, VNC, SSH)
     onlyoffice-desktopeditors # OnlyOffice document editor
 
+    # === Document Conversion ===
+    pandoc # Universal document converter (docx, md, pdf, html, etc.)
+    texliveSmall # LaTeX for pandoc PDF generation
+    python313Packages.markitdown # Microsoft's Word/Excel/PDF to Markdown converter
+
     # === Containers ===
     distrobox # Run any Linux distro in containers
     distrobox-tui # TUI for distrobox
