@@ -157,6 +157,7 @@
     youtube-music # Music streaming
     rustdesk # Remote desktop client (RDP, VNC, SSH)
     onlyoffice-desktopeditors # OnlyOffice document editor
+    exodus # Crypto wallet
 
     # === Document Conversion ===
     pandoc # Universal document converter (docx, md, pdf, html, etc.)
