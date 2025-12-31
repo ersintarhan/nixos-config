@@ -154,7 +154,7 @@
     github-desktop # Git GUI (native)
     gittyup # Git GUI
     lazygit # Terminal Git UI
-    youtube-music # Music streaming
+    pear-desktop # Music streaming
     rustdesk # Remote desktop client (RDP, VNC, SSH)
     onlyoffice-desktopeditors # OnlyOffice document editor
     exodus # Crypto wallet
