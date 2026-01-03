@@ -17,6 +17,7 @@
   home.sessionVariables = {
     CONSUL_HTTP_ADDR = "http://10.101.1.11:8500";
     NOMAD_ADDR = "http://10.101.1.21:4646";
+    TEMPORAL_ADDRESS = "temporal.service.consul:7233";
     TERMINAL = "foot";
     EDITOR = "micro";
   };
@@ -61,6 +62,11 @@
 
   # === Other CLI Tools ===
   programs.pgcli.enable = true;
+
+  # === Temporal CLI ===
+  home.packages = with pkgs; [
+    temporal-cli
+  ];
 
   # === GPG ===
   programs.gpg.enable = true;

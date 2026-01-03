@@ -137,18 +137,38 @@
   '';
 
   # === RustDesk X11 (Wayland keyboard grab fix) ===
+  # Note: Rustdesk package broken in nixpkgs (GCC 15 build issue)
+  # Using Flatpak version instead
   home.file.".local/share/applications/rustdesk-x11.desktop".text = ''
     [Desktop Entry]
     Name=RustDesk (X11)
-    Exec=env -u WAYLAND_DISPLAY DISPLAY=:1 rustdesk
+    Exec=env -u WAYLAND_DISPLAY DISPLAY=:1 flatpak run --socket=x11 com.rustdesk.RustDesk
     Version=1.0
     Type=Application
     Categories=Network;RemoteAccess;
     Terminal=false
-    Icon=rustdesk
+    Icon=com.rustdesk.RustDesk
     Comment=RustDesk Remote Desktop (X11 mode for Wayland compatibility)
     StartupWMClass=rustdesk
     StartupNotify=true
+  '';
+
+  # === Exodus Wallet (Flatpak - X11 mode for Wayland compatibility) ===
+  # Note: Exodus has Wayland compatibility issues, using X11 mode
+  # Flatpak provides its own desktop entry, this is for X11 override
+  home.file.".local/share/applications/exodus-x11.desktop".text = ''
+    [Desktop Entry]
+    Name=Exodus Wallet (X11)
+    Exec=env -u WAYLAND_DISPLAY DISPLAY=:1 flatpak run --socket=x11 io.exodus.Exodus %U
+    Version=1.0
+    Type=Application
+    Categories=Finance;Network;
+    Terminal=false
+    Icon=io.exodus.Exodus
+    Comment=Cryptocurrency wallet (Bitcoin, Ethereum, and more) - X11 mode
+    StartupWMClass=exodus
+    StartupNotify=true
+    MimeType=x-scheme-handler/bitcoin;x-scheme-handlerethereum;x-scheme-handler/exodus;
   '';
 
   # === JetBrains Rider (stable desktop file) ===

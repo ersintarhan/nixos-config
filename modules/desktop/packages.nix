@@ -128,8 +128,15 @@
     bat
     zoxide
     p7zip
-    bruno
-    bruno-cli
+    httpie # HTTP client
+    httpie-desktop # HTTP client GUI
+    curlie # HTTP client
+    s3cmd # S3 client
+    serve # HTTP server
+    yq # YAML parser
+    xq-xml # XML parser
+    #bruno
+    #bruno-cli
 
     # === Polkit Agent ===
     polkit_gnome
@@ -155,14 +162,13 @@
     gittyup # Git GUI
     lazygit # Terminal Git UI
     pear-desktop # Music streaming
-    rustdesk # Remote desktop client (RDP, VNC, SSH)
+    #rustdesk # Remote desktop client (RDP, VNC, SSH)
     onlyoffice-desktopeditors # OnlyOffice document editor
-    exodus # Crypto wallet
 
     # === Document Conversion ===
     pandoc # Universal document converter (docx, md, pdf, html, etc.)
     texliveSmall # LaTeX for pandoc PDF generation
-    python313Packages.markitdown # Microsoft's Word/Excel/PDF to Markdown converter
+    #python313Packages.markitdown # Microsoft's Word/Excel/PDF to Markdown converter
 
     # === Containers ===
     distrobox # Run any Linux distro in containers
