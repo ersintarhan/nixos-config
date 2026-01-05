@@ -39,6 +39,12 @@
         path = "${config.home.homeDirectory}/.config/zai-api-key";
         mode = "0400";
       };
+
+      # Brave Search API Key
+      brave_search_api_key = {
+        path = "${config.home.homeDirectory}/.config/brave-search-api-key";
+        mode = "0400";
+      };
     };
   };
 

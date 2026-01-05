@@ -48,6 +48,11 @@
         set -gx SSH_KEYS_LOADED 1
       end
 
+      # Load Brave Search API key from sops secret
+      if test -f ~/.config/brave-search-api-key
+        set -gx BRAVE_API_KEY (cat ~/.config/brave-search-api-key)
+      end
+
       # Monitor brightness control (ddcutil)
       function bright
         if test (count $argv) -eq 0
